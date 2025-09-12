@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import { DndContext } from '@dnd-kit/core';
-import { useDraggable, useDroppable } from '@dnd-kit/core';
+import {
+  SortableContext,
+  arrayMove,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import BoardColumn from './components/BoardColumn.jsx';
+import { nanoid } from 'nanoid';
 
 const initialColumns = {
-  todo: ['Task 1', 'Task 2'],
-  inprogress: ['Task 3'],
-  done: ['Task 4'],
+  todo: [],
+  inprogress: [],
+  done: [],
 };
 
 const columnTitles = {
@@ -14,90 +20,124 @@ const columnTitles = {
   done: 'Done',
 };
 
-function KanbanItem({ id }) {
-  const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({ id });
-  const style = {
-    transform: transform
-      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-      : undefined,
-    opacity: isDragging ? 0.5 : 1,
-    marginBottom: '8px',
-    padding: '8px',
-    borderRadius: '6px',
-    background: '#f1f5f9',
-    cursor: 'grab',
-  };
-  return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {id}
-    </div>
-  );
-}
-
-function KanbanColumn({ id, title, items }) {
-  const { setNodeRef, isOver } = useDroppable({ id });
-  const style = {
-    background: 'white',
-    borderRadius: '8px',
-    boxShadow: '0 2px 8px #e2e8f0',
-    width: '240px',
-    minHeight: '180px',
-    padding: '16px',
-    margin: '0 12px',
-    border: isOver ? '2px solid #3b82f6' : '2px solid transparent',
-    display: 'flex',
-    flexDirection: 'column',
-  };
-  return (
-    <div ref={setNodeRef} style={style}>
-      <h2 style={{ fontWeight: 600, textAlign: 'center', marginBottom: 12 }}>
-        {title}
-      </h2>
-      <div>
-        {items.map((task) => (
-          <KanbanItem key={task} id={task} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function App() {
+  const [columnOrder, setColumnOrder] = useState([
+    'todo',
+    'inprogress',
+    'done',
+  ]);
   const [columns, setColumns] = useState(initialColumns);
+  const [newTaskText, setNewTaskText] = useState('');
+  const [addToCol, setAddToCol] = useState('todo');
 
   function handleDragEnd({ active, over }) {
-    if (!over || !active) return;
-    // Find which column the task was in
-    let fromCol,
-      toCol = over.id;
-    Object.entries(columns).forEach(([col, tasks]) => {
-      if (tasks.includes(active.id)) fromCol = col;
-    });
-    if (!fromCol || fromCol === toCol) return;
+    if (!over) return;
 
-    // Move task
-    setColumns((prev) => {
-      const source = [...prev[fromCol]];
-      const dest = [...prev[toCol]];
-      source.splice(source.indexOf(active.id), 1);
-      dest.push(active.id);
-      return { ...prev, [fromCol]: source, [toCol]: dest };
-    });
+    // Column drag & drop
+    if (active.data.current?.type === 'column') {
+      if (active.id !== over.id) {
+        setColumnOrder((items) => {
+          const oldIndex = items.indexOf(active.id);
+          const newIndex = items.indexOf(over.id);
+          return arrayMove(items, oldIndex, newIndex);
+        });
+      }
+      return;
+    }
+
+    // Task drag & drop
+    if (active.data.current?.type === 'task') {
+      const fromCol = active.data.current.columnId;
+      const toCol = over.data.current?.columnId || over.id;
+
+      if (!fromCol || !toCol) return;
+
+      setColumns((prev) => {
+        const source = [...prev[fromCol]];
+        const dest = fromCol === toCol ? source : [...prev[toCol]];
+
+        const taskIdx = source.findIndex((t) => t.id === active.id);
+        if (taskIdx === -1) return prev;
+
+        const [movedTask] = source.splice(taskIdx, 1);
+
+        let insertIndex;
+        if (over.data.current?.type === 'task') {
+          insertIndex = dest.findIndex((t) => t.id === over.id);
+          if (insertIndex === -1) insertIndex = dest.length;
+        } else {
+          insertIndex = dest.length;
+        }
+
+        dest.splice(insertIndex, 0, movedTask);
+
+        return {
+          ...prev,
+          [fromCol]: source,
+          [toCol]: dest,
+        };
+      });
+    }
+  }
+  function handleAddTask(e) {
+    e.preventDefault();
+    if (!newTaskText.trim()) return;
+    const newTask = { id: nanoid(), text: newTaskText.trim() };
+    setColumns((prev) => ({
+      ...prev,
+      [addToCol]: [...prev[addToCol], newTask],
+    }));
+    setNewTaskText('');
   }
 
   return (
-    <DndContext onDragEnd={handleDragEnd}>
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
-        {Object.entries(columns).map(([colId, items]) => (
-          <KanbanColumn
-            key={colId}
-            id={colId}
-            title={columnTitles[colId]}
-            items={items}
-          />
-        ))}
-      </div>
-    </DndContext>
+    <div>
+      <form
+        onSubmit={handleAddTask}
+        className="flex gap-2 justify-center mt-6 mb-2"
+      >
+        <input
+          type="text"
+          className="border rounded px-2 py-1"
+          value={newTaskText}
+          placeholder="New task"
+          onChange={(e) => setNewTaskText(e.target.value)}
+        />
+        <select
+          className="border rounded px-2 py-1"
+          value={addToCol}
+          onChange={(e) => setAddToCol(e.target.value)}
+        >
+          {columnOrder.map((colId) => (
+            <option key={colId} value={colId}>
+              {columnTitles[colId]}
+            </option>
+          ))}
+        </select>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+        >
+          Add Task
+        </button>
+      </form>
+      <DndContext onDragEnd={handleDragEnd}>
+        <SortableContext
+          items={columnOrder}
+          strategy={verticalListSortingStrategy}
+        >
+          <div className="flex gap-6 justify-center mt-10">
+            {columnOrder.map((colId) => (
+              <BoardColumn
+                key={colId}
+                id={colId}
+                title={columnTitles[colId]}
+                items={columns[colId]}
+              />
+            ))}
+          </div>
+        </SortableContext>
+      </DndContext>
+    </div>
   );
 }
