@@ -19,8 +19,6 @@ export default function KanbanItem({ id, text, columnId, onDelete }) {
   return (
     <div
       ref={setNodeRef}
-      {...attributes}
-      {...listeners}
       className={`bg-gray-100 rounded px-3 py-2 mb-2 shadow cursor-grab relative transition-opacity flex items-center group ${
         isDragging ? 'opacity-60 z-50' : ''
       }`}
@@ -33,10 +31,15 @@ export default function KanbanItem({ id, text, columnId, onDelete }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <span className="flex-1">{text}</span>
+      {/* Gör dragbart bara här */}
+      <span className="flex-1" {...attributes} {...listeners}>
+        {text}
+      </span>
+
+      {/* Delete-knappen är INTE dragbar */}
       {hovered && (
         <button
-          className="ml-2 bg-red-500 text-white rounded-full w-7 h-7 flex items-center justify-center border-none cursor-pointer"
+          className="ml-2 bg-black text-white rounded-full w-7 h-7 flex items-center justify-center border-none cursor-pointer"
           style={{
             position: 'relative',
             right: 0,

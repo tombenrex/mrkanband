@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { DndContext } from '@dnd-kit/core';
 import {
   SortableContext,
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import { useState } from 'react';
+import { DndContext } from '@dnd-kit/core';
 import { nanoid } from 'nanoid';
 import BoardColumn from './components/BoardColumn.jsx';
 import TrashArea from './components/TrashArea.jsx';
@@ -119,7 +119,7 @@ export default function App() {
   }
 
   return (
-    <div className="roboto">
+    <div className="roboto m-2">
       <form
         onSubmit={handleAddTask}
         className="flex gap-2 justify-center mt-6 mb-2 text-white"
@@ -132,7 +132,7 @@ export default function App() {
           onChange={(e) => setNewTaskText(e.target.value)}
         />
         <select
-          className="border rounded px-2 py-1"
+          className="border rounded px-2 py-1 bg-gray-700 text-white"
           value={addToCol}
           onChange={(e) => setAddToCol(e.target.value)}
         >

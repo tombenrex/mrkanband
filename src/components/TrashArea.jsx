@@ -7,15 +7,13 @@ export default function TrashArea({ visible }) {
     <div
       ref={setNodeRef}
       id="trash"
+      className="mt-2 align-center mx-auto"
       style={{
-        position: 'fixed',
-        top: '24px',
-        right: '24px',
         width: '80px',
         height: '80px',
-        background: isOver ? 'red' : 'white',
+        background: isOver ? 'black' : 'white',
         color: 'white',
-        borderRadius: '1%',
+        borderRadius: '50%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
