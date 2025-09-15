@@ -1,9 +1,12 @@
 html,
 body,
 #root {
-  height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
+}
+
+.appcontainer {
+  min-height: 100vh;
 }
 
 .roboto {

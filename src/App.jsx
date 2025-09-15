@@ -10,6 +10,7 @@ import BoardColumn from './components/BoardColumn.jsx';
 import TrashArea from './components/TrashArea.jsx';
 import './styles/App.css';
 import Title from './components/Title.jsx';
+import Footer from './components/Footer.jsx';
 
 const initialColumns = {
   todo: [],
@@ -118,61 +119,62 @@ export default function App() {
   }
 
   return (
-    <div className="app-container">
+    <div className="app-container roboto m-2">
       <Title text="Mr.Kanband" />
-      <div className="roboto m-2">
-        <form
-          onSubmit={handleAddTask}
-          className="flex gap-2 justify-center mt-6 mb-2 text-white"
+
+      <form
+        onSubmit={handleAddTask}
+        className="flex gap-2 justify-center mt-6 mb-2 text-white"
+      >
+        <label htmlFor="new-task" className="sr-only">
+          New Task
+        </label>
+        <input
+          type="text"
+          className="border rounded px-2 py-1 text-white"
+          value={newTaskText}
+          placeholder="New task"
+          onChange={(e) => setNewTaskText(e.target.value)}
+        />
+        <select
+          className="border rounded px-2 py-1 bg-gray-700 text-white"
+          value={addToCol}
+          onChange={(e) => setAddToCol(e.target.value)}
         >
-          <label htmlFor="new-task" className="sr-only">
-            New Task
-          </label>
-          <input
-            type="text"
-            className="border rounded px-2 py-1 text-white"
-            value={newTaskText}
-            placeholder="New task"
-            onChange={(e) => setNewTaskText(e.target.value)}
-          />
-          <select
-            className="border rounded px-2 py-1 bg-gray-700 text-white"
-            value={addToCol}
-            onChange={(e) => setAddToCol(e.target.value)}
-          >
+          {columnOrder.map((colId) => (
+            <option key={colId} value={colId}>
+              {columnTitles[colId]}
+            </option>
+          ))}
+        </select>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+        >
+          Add Task
+        </button>
+      </form>
+      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+        <SortableContext
+          items={columnOrder}
+          strategy={verticalListSortingStrategy}
+        >
+          <div className="flex gap-6 justify-center mt-10">
             {columnOrder.map((colId) => (
-              <option key={colId} value={colId}>
-                {columnTitles[colId]}
-              </option>
+              <BoardColumn
+                key={colId}
+                id={colId}
+                title={columnTitles[colId]}
+                items={columns[colId]}
+                onDelete={handleDeleteTask}
+              />
             ))}
-          </select>
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
-          >
-            Add Task
-          </button>
-        </form>
-        <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-          <SortableContext
-            items={columnOrder}
-            strategy={verticalListSortingStrategy}
-          >
-            <div className="flex gap-6 justify-center mt-10">
-              {columnOrder.map((colId) => (
-                <BoardColumn
-                  key={colId}
-                  id={colId}
-                  title={columnTitles[colId]}
-                  items={columns[colId]}
-                  onDelete={handleDeleteTask}
-                />
-              ))}
-            </div>
-          </SortableContext>
-          <TrashArea visible={isTaskDragging} />
-        </DndContext>
-      </div>
+          </div>
+        </SortableContext>
+        <TrashArea visible={isTaskDragging} />
+      </DndContext>
+
+      <Footer />
     </div>
   );
 }
