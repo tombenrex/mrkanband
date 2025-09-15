@@ -5,6 +5,10 @@ body,
   margin: 0;
   font-family: Arial, sans-serif;
 }
-body {
-  background-color: #f4f4f4;
+
+.roboto {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
 }

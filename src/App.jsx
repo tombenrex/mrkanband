@@ -5,8 +5,10 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import BoardColumn from './components/BoardColumn.jsx';
 import { nanoid } from 'nanoid';
+import BoardColumn from './components/BoardColumn.jsx';
+import TrashArea from './components/TrashArea.jsx';
+import './styles/App.css';
 
 const initialColumns = {
   todo: [],
@@ -21,6 +23,7 @@ const columnTitles = {
 };
 
 export default function App() {
+  const [isDragging, setIsDragging] = useState(false);
   const [columnOrder, setColumnOrder] = useState([
     'todo',
     'inprogress',
@@ -29,9 +32,20 @@ export default function App() {
   const [columns, setColumns] = useState(initialColumns);
   const [newTaskText, setNewTaskText] = useState('');
   const [addToCol, setAddToCol] = useState('todo');
-
+  function handleDragStart() {
+    setIsDragging(true);
+  }
   function handleDragEnd({ active, over }) {
     if (!over) return;
+
+    if (over.id === 'trash' && active.data.current?.type === 'task') {
+      const fromCol = active.data.current.columnId;
+      setColumns((prev) => ({
+        ...prev,
+        [fromCol]: prev[fromCol].filter((t) => t.id !== active.id),
+      }));
+      return;
+    }
 
     // Column drag & drop
     if (active.data.current?.type === 'column') {
@@ -91,14 +105,14 @@ export default function App() {
   }
 
   return (
-    <div>
+    <div className="roboto">
       <form
         onSubmit={handleAddTask}
-        className="flex gap-2 justify-center mt-6 mb-2"
+        className="flex gap-2 justify-center mt-6 mb-2 text-white"
       >
         <input
           type="text"
-          className="border rounded px-2 py-1"
+          className="border rounded px-2 py-1 text-white"
           value={newTaskText}
           placeholder="New task"
           onChange={(e) => setNewTaskText(e.target.value)}
@@ -121,7 +135,7 @@ export default function App() {
           Add Task
         </button>
       </form>
-      <DndContext onDragEnd={handleDragEnd}>
+      <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
         <SortableContext
           items={columnOrder}
           strategy={verticalListSortingStrategy}
@@ -137,6 +151,7 @@ export default function App() {
             ))}
           </div>
         </SortableContext>
+        <TrashArea visible={isDragging} />
       </DndContext>
     </div>
   );
