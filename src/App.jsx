@@ -9,6 +9,7 @@ import { nanoid } from 'nanoid';
 import BoardColumn from './components/BoardColumn.jsx';
 import TrashArea from './components/TrashArea.jsx';
 import './styles/App.css';
+import Title from './components/Title.jsx';
 
 const initialColumns = {
   todo: [],
@@ -29,6 +30,7 @@ export default function App() {
     'inprogress',
     'done',
   ]);
+
   const [columns, setColumns] = useState(initialColumns);
   const [newTaskText, setNewTaskText] = useState('');
   const [addToCol, setAddToCol] = useState('todo');
@@ -45,7 +47,6 @@ export default function App() {
 
     if (!over) return;
 
-    // Delete if dropped on trash
     if (over.id === 'trash' && active.data?.current?.type === 'task') {
       const fromCol = active.data.current.columnId;
       setColumns((prev) => ({
@@ -55,7 +56,6 @@ export default function App() {
       return;
     }
 
-    // Column drag & drop
     if (active.data?.current?.type === 'column') {
       if (active.id !== over.id) {
         setColumnOrder((items) => {
@@ -67,7 +67,6 @@ export default function App() {
       return;
     }
 
-    // Task drag & drop
     if (
       active.data?.current?.type === 'task' &&
       over.data?.current?.type === 'task'
@@ -119,55 +118,58 @@ export default function App() {
   }
 
   return (
-    <div className="roboto m-2">
-      <form
-        onSubmit={handleAddTask}
-        className="flex gap-2 justify-center mt-6 mb-2 text-white"
-      >
-        <input
-          type="text"
-          className="border rounded px-2 py-1 text-white"
-          value={newTaskText}
-          placeholder="New task"
-          onChange={(e) => setNewTaskText(e.target.value)}
-        />
-        <select
-          className="border rounded px-2 py-1 bg-gray-700 text-white"
-          value={addToCol}
-          onChange={(e) => setAddToCol(e.target.value)}
+    <>
+      <Title text="MrKanband" />
+      <div className="roboto m-2">
+        <form
+          onSubmit={handleAddTask}
+          className="flex gap-2 justify-center mt-6 mb-2 text-white"
         >
-          {columnOrder.map((colId) => (
-            <option key={colId} value={colId}>
-              {columnTitles[colId]}
-            </option>
-          ))}
-        </select>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
-        >
-          Add Task
-        </button>
-      </form>
-      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-        <SortableContext
-          items={columnOrder}
-          strategy={verticalListSortingStrategy}
-        >
-          <div className="flex gap-6 justify-center mt-10">
+          <input
+            type="text"
+            className="border rounded px-2 py-1 text-white"
+            value={newTaskText}
+            placeholder="New task"
+            onChange={(e) => setNewTaskText(e.target.value)}
+          />
+          <select
+            className="border rounded px-2 py-1 bg-gray-700 text-white"
+            value={addToCol}
+            onChange={(e) => setAddToCol(e.target.value)}
+          >
             {columnOrder.map((colId) => (
-              <BoardColumn
-                key={colId}
-                id={colId}
-                title={columnTitles[colId]}
-                items={columns[colId]}
-                onDelete={handleDeleteTask}
-              />
+              <option key={colId} value={colId}>
+                {columnTitles[colId]}
+              </option>
             ))}
-          </div>
-        </SortableContext>
-        <TrashArea visible={isTaskDragging} />
-      </DndContext>
-    </div>
+          </select>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+          >
+            Add Task
+          </button>
+        </form>
+        <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+          <SortableContext
+            items={columnOrder}
+            strategy={verticalListSortingStrategy}
+          >
+            <div className="flex gap-6 justify-center mt-10">
+              {columnOrder.map((colId) => (
+                <BoardColumn
+                  key={colId}
+                  id={colId}
+                  title={columnTitles[colId]}
+                  items={columns[colId]}
+                  onDelete={handleDeleteTask}
+                />
+              ))}
+            </div>
+          </SortableContext>
+          <TrashArea visible={isTaskDragging} />
+        </DndContext>
+      </div>
+    </>
   );
 }

@@ -4,7 +4,6 @@ import { CSS } from '@dnd-kit/utilities';
 import KanbanItem from './KanbanItem.jsx';
 
 export default function BoardColumn({ id, title, items, onDelete }) {
-  // Column is sortable
   const {
     setNodeRef: setSortableNodeRef,
     attributes,
@@ -14,7 +13,6 @@ export default function BoardColumn({ id, title, items, onDelete }) {
     isDragging,
   } = useSortable({ id, data: { type: 'column' } });
 
-  // Column is droppable for tasks
   const { setNodeRef: setDroppableNodeRef, isOver } = useDroppable({
     id,
     data: { type: 'task', columnId: id },
@@ -34,7 +32,7 @@ export default function BoardColumn({ id, title, items, onDelete }) {
       }}
     >
       <h2 className="font-semibold text-center mb-3 cursor-grab">{title}</h2>
-      {/* Droppable area for tasks */}
+
       <div
         ref={setDroppableNodeRef}
         className={`flex-1 ${isOver ? 'bg-blue-50' : ''}`}
