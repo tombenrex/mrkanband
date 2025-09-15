@@ -1,14 +1,10 @@
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
 import { useSortable } from '@dnd-kit/sortable';
 import { useDroppable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import KanbanItem from './KanbanItem.jsx';
 
-export default function BoardColumn({ id, title, items }) {
-  // Make the whole column sortable (for column drag)
+export default function BoardColumn({ id, title, items, onDelete }) {
+  // Column is sortable
   const {
     setNodeRef: setSortableNodeRef,
     attributes,
@@ -18,7 +14,7 @@ export default function BoardColumn({ id, title, items }) {
     isDragging,
   } = useSortable({ id, data: { type: 'column' } });
 
-  // Make the inside of the column droppable (for task drag)
+  // Column is droppable for tasks
   const { setNodeRef: setDroppableNodeRef, isOver } = useDroppable({
     id,
     data: { type: 'task', columnId: id },
@@ -44,19 +40,15 @@ export default function BoardColumn({ id, title, items }) {
         className={`flex-1 ${isOver ? 'bg-blue-50' : ''}`}
         style={{ minHeight: 80 }}
       >
-        <SortableContext
-          items={items.map((task) => task.id)}
-          strategy={verticalListSortingStrategy}
-        >
-          {items.map((task) => (
-            <KanbanItem
-              key={task.id}
-              id={task.id}
-              text={task.text}
-              columnId={id}
-            />
-          ))}
-        </SortableContext>
+        {items.map((task) => (
+          <KanbanItem
+            key={task.id}
+            id={task.id}
+            text={task.text}
+            columnId={id}
+            onDelete={onDelete}
+          />
+        ))}
       </div>
     </div>
   );

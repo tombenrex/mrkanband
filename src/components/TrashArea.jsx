@@ -1,16 +1,21 @@
+import { useDroppable } from '@dnd-kit/core';
+
 export default function TrashArea({ visible }) {
+  const { setNodeRef, isOver } = useDroppable({ id: 'trash' });
+
   return (
     <div
+      ref={setNodeRef}
       id="trash"
       style={{
         position: 'fixed',
-        bottom: '24px',
+        top: '24px',
         right: '24px',
         width: '80px',
         height: '80px',
-        background: '#ff3b3b',
+        background: isOver ? 'red' : 'white',
         color: 'white',
-        borderRadius: '50%',
+        borderRadius: '1%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -20,7 +25,7 @@ export default function TrashArea({ visible }) {
         zIndex: 999,
         opacity: visible ? 1 : 0,
         pointerEvents: visible ? 'auto' : 'none',
-        transition: 'opacity 0.3s',
+        transition: 'opacity 0.3s, background 0.2s',
       }}
     >
       🗑️

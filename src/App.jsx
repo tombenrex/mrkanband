@@ -23,7 +23,7 @@ const columnTitles = {
 };
 
 export default function App() {
-  const [isDragging, setIsDragging] = useState(false);
+  const [isTaskDragging, setIsTaskDragging] = useState(false);
   const [columnOrder, setColumnOrder] = useState([
     'todo',
     'inprogress',
@@ -32,13 +32,21 @@ export default function App() {
   const [columns, setColumns] = useState(initialColumns);
   const [newTaskText, setNewTaskText] = useState('');
   const [addToCol, setAddToCol] = useState('todo');
-  function handleDragStart() {
-    setIsDragging(true);
+
+  function handleDragStart(event) {
+    const { active } = event;
+    if (active.data?.current?.type === 'task') {
+      setIsTaskDragging(true);
+    }
   }
+
   function handleDragEnd({ active, over }) {
+    setIsTaskDragging(false);
+
     if (!over) return;
 
-    if (over.id === 'trash' && active.data.current?.type === 'task') {
+    // Delete if dropped on trash
+    if (over.id === 'trash' && active.data?.current?.type === 'task') {
       const fromCol = active.data.current.columnId;
       setColumns((prev) => ({
         ...prev,
@@ -48,7 +56,7 @@ export default function App() {
     }
 
     // Column drag & drop
-    if (active.data.current?.type === 'column') {
+    if (active.data?.current?.type === 'column') {
       if (active.id !== over.id) {
         setColumnOrder((items) => {
           const oldIndex = items.indexOf(active.id);
@@ -60,9 +68,12 @@ export default function App() {
     }
 
     // Task drag & drop
-    if (active.data.current?.type === 'task') {
+    if (
+      active.data?.current?.type === 'task' &&
+      over.data?.current?.type === 'task'
+    ) {
       const fromCol = active.data.current.columnId;
-      const toCol = over.data.current?.columnId || over.id;
+      const toCol = over.data.current.columnId;
 
       if (!fromCol || !toCol) return;
 
@@ -75,14 +86,9 @@ export default function App() {
 
         const [movedTask] = source.splice(taskIdx, 1);
 
-        let insertIndex;
-        if (over.data.current?.type === 'task') {
-          insertIndex = dest.findIndex((t) => t.id === over.id);
-          if (insertIndex === -1) insertIndex = dest.length;
-        } else {
-          insertIndex = dest.length;
-        }
-
+        // Find insertion index
+        let insertIndex = dest.findIndex((t) => t.id === over.id);
+        if (insertIndex === -1) insertIndex = dest.length;
         dest.splice(insertIndex, 0, movedTask);
 
         return {
@@ -93,6 +99,7 @@ export default function App() {
       });
     }
   }
+
   function handleAddTask(e) {
     e.preventDefault();
     if (!newTaskText.trim()) return;
@@ -102,6 +109,13 @@ export default function App() {
       [addToCol]: [...prev[addToCol], newTask],
     }));
     setNewTaskText('');
+  }
+
+  function handleDeleteTask(colId, taskId) {
+    setColumns((prev) => ({
+      ...prev,
+      [colId]: prev[colId].filter((t) => t.id !== taskId),
+    }));
   }
 
   return (
@@ -135,7 +149,7 @@ export default function App() {
           Add Task
         </button>
       </form>
-      <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
+      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <SortableContext
           items={columnOrder}
           strategy={verticalListSortingStrategy}
@@ -147,11 +161,12 @@ export default function App() {
                 id={colId}
                 title={columnTitles[colId]}
                 items={columns[colId]}
+                onDelete={handleDeleteTask}
               />
             ))}
           </div>
         </SortableContext>
-        <TrashArea visible={isDragging} />
+        <TrashArea visible={isTaskDragging} />
       </DndContext>
     </div>
   );

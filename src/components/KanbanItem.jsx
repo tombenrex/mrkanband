@@ -1,30 +1,54 @@
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { useDraggable } from '@dnd-kit/core';
+import { useState } from 'react';
 
-export default function KanbanItem({ id, text, columnId }) {
+export default function KanbanItem({ id, text, columnId, onDelete }) {
   const {
-    setNodeRef,
     attributes,
     listeners,
+    setNodeRef,
     transform,
     transition,
     isDragging,
-  } = useSortable({ id, data: { type: 'task', columnId } });
+  } = useDraggable({
+    id,
+    data: { type: 'task', columnId },
+  });
+
+  const [hovered, setHovered] = useState(false);
 
   return (
     <div
       ref={setNodeRef}
       {...attributes}
       {...listeners}
-      className={`mb-2 p-2 rounded bg-gray-100 cursor-grab transition-opacity ${
-        isDragging ? 'opacity-50' : ''
+      className={`bg-gray-100 rounded px-3 py-2 mb-2 shadow cursor-grab relative transition-opacity flex items-center group ${
+        isDragging ? 'opacity-60 z-50' : ''
       }`}
       style={{
-        transform: CSS.Transform.toString(transform),
+        transform: transform
+          ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+          : undefined,
         transition,
       }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      {text}
+      <span className="flex-1">{text}</span>
+      {hovered && (
+        <button
+          className="ml-2 bg-red-500 text-white rounded-full w-7 h-7 flex items-center justify-center border-none cursor-pointer"
+          style={{
+            position: 'relative',
+            right: 0,
+            opacity: 1,
+            transition: 'opacity 0.2s',
+          }}
+          title="Delete"
+          onClick={() => onDelete(columnId, id)}
+        >
+          &times;
+        </button>
+      )}
     </div>
   );
 }
