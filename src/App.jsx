@@ -118,13 +118,16 @@ export default function App() {
   }
 
   return (
-    <>
-      <Title text="MrKanband" />
+    <div className="app-container">
+      <Title text="Mr.Kanband" />
       <div className="roboto m-2">
         <form
           onSubmit={handleAddTask}
           className="flex gap-2 justify-center mt-6 mb-2 text-white"
         >
+          <label htmlFor="new-task" className="sr-only">
+            New Task
+          </label>
           <input
             type="text"
             className="border rounded px-2 py-1 text-white"
@@ -170,6 +173,6 @@ export default function App() {
           <TrashArea visible={isTaskDragging} />
         </DndContext>
       </div>
-    </>
+    </div>
   );
 }
