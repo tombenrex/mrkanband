@@ -11,6 +11,7 @@ import TrashArea from './components/TrashArea.jsx';
 import './styles/App.css';
 import Title from './components/Title.jsx';
 import Footer from './components/Footer.jsx';
+import 'bootswatch/dist/quartz/bootstrap.min.css';
 
 const initialColumns = {
   todo: [],
@@ -119,7 +120,7 @@ export default function App() {
   }
 
   return (
-    <div className="app-container roboto m-2">
+    <div className="app-container roboto m-2 h-full flex flex-col">
       <Title text="Mr.Kanband" />
 
       <form

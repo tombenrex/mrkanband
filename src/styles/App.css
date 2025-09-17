@@ -1,8 +1,15 @@
+@import 'tailwindcss';
+
 html,
 body,
 #root {
   margin: 0;
   font-family: Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font-alt), Arial, Helvetica, sans-serif;
+  background-image: linear-gradient(to right, #667eea, #764ba2);
 }
 
 .appcontainer {
