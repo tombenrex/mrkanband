@@ -12,6 +12,10 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
   } = useDraggable({
     id,
     data: { type: 'task', columnId },
+    activationConstraint: {
+      delay: 250, // långtryck på mobil
+      tolerance: 5,
+    },
   });
 
   const [hovered, setHovered] = useState(false);
@@ -31,16 +35,18 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* --- Drag handle, visas endast vid hover --- */}
-      {hovered && (
-        <div
-          {...listeners}
-          {...attributes}
-          className="mr-2 cursor-move p-1 bg-primary rounded"
-        >
-          ⠿
-        </div>
-      )}
+      {/* --- Drag handle, ENDA dragytan --- */}
+      <div
+        {...listeners}
+        {...attributes}
+        className="mr-2 cursor-move p-1 bg-primary rounded select-none"
+        style={{ touchAction: 'none' }}
+        tabIndex={0} // gör den fokuserbar för tillgänglighet
+        aria-label="Flytta"
+        role="button"
+      >
+        ⠿
+      </div>
 
       {/* --- Klickbar text för modal --- */}
       <span
