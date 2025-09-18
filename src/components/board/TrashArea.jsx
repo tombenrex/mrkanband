@@ -1,3 +1,4 @@
+// src/components/board/TrashArea.jsx
 import { useDroppable } from '@dnd-kit/core';
 import { TrashIcon as TrashOutline } from '@heroicons/react/24/outline';
 import { TrashIcon as TrashSolid } from '@heroicons/react/24/solid';
@@ -9,14 +10,14 @@ export default function TrashArea({ visible }) {
     <div
       ref={setNodeRef}
       id="trash"
-      className={`mx-auto mt-2 flex h-20 w-20 items-center justify-center border-2 border-dashed border-white shadow-md font-bold text-4xl z-[999] transition-opacity duration-300 ${
-        visible
-          ? 'opacity-100 pointer-events-auto'
-          : 'opacity-0 pointer-events-none'
-      }`}
-      style={{
-        background: isOver ? 'rgba(255,0,0,0.2)' : 'transparent',
-      }}
+      className={`mx-auto mt-2 flex h-20 w-20 items-center justify-center border-2 border-dashed border-white shadow-md font-bold text-4xl z-[999] transition-all duration-300 rounded-full
+        ${
+          visible
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
+        }
+        ${isOver ? 'bg-red-100' : 'bg-transparent'}
+      `}
     >
       {isOver ? (
         <TrashSolid className="h-10 w-10 text-red-500 transition-all duration-200" />

@@ -2,3 +2,6 @@
 @plugin "daisyui" {
   themes: all;
 }
+body {
+  font-family: 'Monaspace Radon', cursive;
+}

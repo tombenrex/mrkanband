@@ -1,7 +1,7 @@
 import { useDraggable } from '@dnd-kit/core';
 import { useState } from 'react';
 
-export default function KanbanItem({ id, text, columnId, onDelete }) {
+export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
   const {
     attributes,
     listeners,
@@ -19,8 +19,8 @@ export default function KanbanItem({ id, text, columnId, onDelete }) {
   return (
     <div
       ref={setNodeRef}
-      className={`bg-gray-100 rounded px-3 py-2 mb-2 shadow cursor-grab relative transition-opacity flex items-center group ${
-        isDragging ? 'opacity-60 z-50' : ''
+      className={`bg-base-200 rounded px-3 py-2 mb-2 shadow flex items-center justify-between border ${
+        isDragging ? 'opacity-50 z-50' : ''
       }`}
       style={{
         transform: transform
@@ -31,27 +31,38 @@ export default function KanbanItem({ id, text, columnId, onDelete }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <span className="flex-1" {...attributes} {...listeners}>
+      {/* --- Drag handle, visas endast vid hover --- */}
+      {hovered && (
+        <div
+          {...listeners}
+          {...attributes}
+          className="mr-2 cursor-move p-1 bg-primary rounded"
+        >
+          ⠿
+        </div>
+      )}
+
+      {/* --- Klickbar text för modal --- */}
+      <span
+        className="flex-1 cursor-pointer"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick();
+        }}
+      >
         {text}
       </span>
 
+      {/* --- Delete knapp, visas endast vid hover --- */}
       {hovered && (
         <button
-          className="ml-2 bg-black text-white rounded-full w-7 h-7 flex items-center justify-center border-none cursor-pointer"
-          style={{
-            position: 'relative',
-            right: 0,
-            opacity: 1,
-            transition: 'opacity 0.2s',
-          }}
-          title="Delete"
-          onPointerDown={(e) => e.stopPropagation()}
           onClick={(e) => {
             e.stopPropagation();
             onDelete(columnId, id);
           }}
+          className="ml-2 btn btn-sm btn-error"
         >
-          &times;
+          ✕
         </button>
       )}
     </div>
