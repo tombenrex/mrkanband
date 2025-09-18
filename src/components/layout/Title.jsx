@@ -1,8 +1,9 @@
 // src/components/layout/Title.jsx
-export default function Title({ text }) {
+
+export default function Title() {
   return (
-    <h1 className="frijole-regular text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center text-white mt-5 border-b-2 pb-2">
-      {text}
-    </h1>
+    <div className="w-full max-w-xs md:max-w-sm lg:max-w-md">
+      <img src="/logo.png" alt="Logo" className="max-w-full h-auto" />
+    </div>
   );
 }

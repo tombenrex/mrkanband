@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useBoard } from '../context/BoardContext.jsx';
+import { useBoard } from '../context/useBoard'; // <-- rätt import!
 import TaskModal from '../components/board/TaskModal.jsx';
 
 export default function TaskPage() {

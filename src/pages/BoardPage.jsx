@@ -6,7 +6,7 @@ import TrashArea from '../components/board/TrashArea.jsx';
 import Title from '../components/layout/Title.jsx';
 import Footer from '../components/layout/Footer.jsx';
 import TaskModal from '../components/board/TaskModal.jsx';
-import { useBoard } from '../context/BoardContext.jsx';
+import { useBoard } from '../context/useBoard'; // <-- ändra till din custom hook-fil
 
 export default function BoardPage() {
   const { columns, columnOrder, addTask, deleteTask, moveTask } = useBoard();
@@ -23,7 +23,7 @@ export default function BoardPage() {
     columns[colId].map((t) => ({ ...t, columnId: colId }))
   );
 
-  // --- Lägg till task ---
+  // Lägg till task
   function handleAddTask(e) {
     e.preventDefault();
     if (!newTaskText.trim()) return;
@@ -31,23 +31,23 @@ export default function BoardPage() {
     setNewTaskText('');
   }
 
-  // --- Drag start ---
+  // Drag start
   function handleDragStart({ active }) {
     if (active.data?.current?.type === 'task') setIsTaskDragging(true);
   }
 
-  // --- Drag end ---
+  // Drag end
   function handleDragEnd({ active, over }) {
     setIsTaskDragging(false);
     if (!over) return;
 
-    // --- Trash ---
+    // Trash
     if (over.id === 'trash' && active.data?.current?.type === 'task') {
       deleteTask(active.data.current.columnId, active.id);
       return;
     }
 
-    // --- Flytta task mellan kolumner ---
+    // Flytta task mellan kolumner
     if (
       active.data?.current?.type === 'task' &&
       over.data?.current?.type === 'task'
@@ -60,9 +60,8 @@ export default function BoardPage() {
     }
   }
 
-  // --- När man klickar på ett kort: navigera till rätt URL ---
+  // När man klickar på ett kort: navigera till rätt URL
   function handleTaskClick(taskId) {
-    // hitta kolumn
     const colId = columnOrder.find((colId) =>
       columns[colId].some((t) => t.id === taskId)
     );
@@ -76,9 +75,9 @@ export default function BoardPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 flex flex-col items-center">
-        <Title text="Mr.KanBand" />
+        <Title />
 
-        {/* --- Add Task Form --- */}
+        {/* Add Task Form */}
         <form
           onSubmit={handleAddTask}
           className="flex gap-2 justify-center mt-6 mb-2"
@@ -106,7 +105,7 @@ export default function BoardPage() {
           </button>
         </form>
 
-        {/* --- Columns --- */}
+        {/* Columns */}
         <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
           <div className="flex gap-6 justify-center flex-wrap mt-10">
             {columnOrder.map((colId) => (
@@ -120,11 +119,10 @@ export default function BoardPage() {
               />
             ))}
           </div>
-
           <TrashArea visible={isTaskDragging} />
         </DndContext>
 
-        {/* --- Task Modal --- */}
+        {/* Task Modal */}
         {selectedTask && (
           <TaskModal
             taskId={selectedTask}

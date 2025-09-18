@@ -6,7 +6,7 @@ import TrashArea from '../components/board/TrashArea.jsx';
 import Title from '../components/layout/Title.jsx';
 import Footer from '../components/layout/Footer.jsx';
 import TaskModal from '../components/board/TaskModal.jsx';
-import { useBoard } from '../context/BoardContext.jsx';
+import { useBoard } from '../context/useBoard'; // <-- rätt import!
 
 export default function ColumnPage() {
   const { columnId } = useParams();
@@ -22,12 +22,12 @@ export default function ColumnPage() {
 
   const tasksWithCol = column.map((t) => ({ ...t, columnId }));
 
-  // --- Drag start ---
+  // Drag start
   function handleDragStart({ active }) {
     if (active.data?.current?.type === 'task') setIsTaskDragging(true);
   }
 
-  // --- Drag end ---
+  // Drag end
   function handleDragEnd({ active, over }) {
     setIsTaskDragging(false);
     if (!over) return;

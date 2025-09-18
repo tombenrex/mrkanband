@@ -53,7 +53,7 @@ export default function TaskModal({
               target="_blank"
               rel="noopener noreferrer"
             >
-              Permanent länk till detta kort
+              Länk för att visa routing
             </a>
           </div>
         )}
