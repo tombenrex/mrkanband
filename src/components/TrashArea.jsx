@@ -9,23 +9,13 @@ export default function TrashArea({ visible }) {
     <div
       ref={setNodeRef}
       id="trash"
-      className="mt-2 align-center mx-auto"
+      className={`mx-auto mt-2 flex h-20 w-20 items-center justify-center border-2 border-dashed border-white shadow-md font-bold text-4xl z-[999] transition-opacity duration-300 ${
+        visible
+          ? 'opacity-100 pointer-events-auto'
+          : 'opacity-0 pointer-events-none'
+      }`}
       style={{
-        width: '80px',
-        height: '80px',
-        border: '2px dashed white',
-        color: 'white',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-        fontWeight: 'bold',
-        fontSize: '32px',
-        zIndex: 999,
-        opacity: visible ? 1 : 0,
-        pointerEvents: visible ? 'auto' : 'none',
-        transition: 'opacity 0.3s, background 0.2s',
-        background: isOver ? 'rgba(255, 0, 0, 0.2)' : 'transparent', // Optional: highlight on hover
+        background: isOver ? 'rgba(255,0,0,0.2)' : 'transparent',
       }}
     >
       {isOver ? (
