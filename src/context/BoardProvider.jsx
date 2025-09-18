@@ -7,7 +7,7 @@ const LOCAL_STORAGE_KEY = 'mrkanband-columns';
 export function BoardProvider({ children }) {
   const initialColumns = {
     todo: [],
-    inprogress: [],
+    doing: [],
     done: [],
   };
 
