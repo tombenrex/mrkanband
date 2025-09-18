@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DndContext } from '@dnd-kit/core';
 import { BoardColumn, TrashArea, TaskModal } from '@board';
-import { Title, Footer } from '@layout';
+import { Header, Footer } from '@layout';
 import { useBoard } from '@context';
 
 export default function ColumnPage() {
@@ -56,7 +56,7 @@ export default function ColumnPage() {
 
   return (
     <div className="m-2 h-full flex flex-col items-center">
-      <Title text={`Column: ${columnId}`} />
+      <Header />
 
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <BoardColumn
