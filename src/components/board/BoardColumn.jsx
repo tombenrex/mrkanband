@@ -1,5 +1,5 @@
 import { useDroppable } from '@dnd-kit/core';
-import KanbanItem from './KanbanItem.jsx';
+import { KanbanItem } from '@board';
 
 export default function BoardColumn({
   id,

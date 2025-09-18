@@ -1,4 +1,3 @@
-// src/components/board/TrashArea.jsx
 import { useDroppable } from '@dnd-kit/core';
 import { TrashIcon as TrashOutline } from '@heroicons/react/24/outline';
 import { TrashIcon as TrashSolid } from '@heroicons/react/24/solid';

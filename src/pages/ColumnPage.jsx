@@ -1,12 +1,9 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { DndContext } from '@dnd-kit/core';
-import BoardColumn from '../components/board/BoardColumn.jsx';
-import TrashArea from '../components/board/TrashArea.jsx';
-import Title from '../components/layout/Title.jsx';
-import Footer from '../components/layout/Footer.jsx';
-import TaskModal from '../components/board/TaskModal.jsx';
-import { useBoard } from '../context/useBoard'; // <-- rätt import!
+import { BoardColumn, TrashArea, TaskModal } from '@board';
+import { Title, Footer } from '@layout';
+import { useBoard } from '@context';
 
 export default function ColumnPage() {
   const { columnId } = useParams();

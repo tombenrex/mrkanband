@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@board": ["components/board/index.js"],
+      "@layout": ["components/layout/index.js"],
+      "@context": ["context/index.js"]
+    }
+  }
+}
