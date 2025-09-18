@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DndContext } from '@dnd-kit/core';
@@ -54,7 +55,7 @@ export default function ColumnPage() {
   }
 
   return (
-    <div className="app-container roboto m-2 h-full flex flex-col items-center text-white">
+    <div className="m-2 h-full flex flex-col items-center">
       <Title text={`Column: ${columnId}`} />
 
       <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
@@ -67,7 +68,9 @@ export default function ColumnPage() {
         />
         <TrashArea visible={isTaskDragging} />
       </DndContext>
-
+      <Link to="/" className="mb-4  hover:text-secondary">
+        ← Back
+      </Link>
       {/* Task Modal */}
       {selectedTask && (
         <TaskModal

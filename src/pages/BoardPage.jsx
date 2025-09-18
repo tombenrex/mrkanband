@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { DndContext } from '@dnd-kit/core';
 
 import { BoardColumn, TrashArea, TaskModal } from '@board';
-import { Title, Footer } from '@layout';
+import { Header, Footer } from '@layout';
 import { useBoard } from '@context';
 
 export default function BoardPage() {
@@ -73,7 +73,7 @@ export default function BoardPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 flex flex-col items-center p-2">
-        <Title />
+        <Header />
 
         {/* Add Task Form */}
         <form

@@ -65,6 +65,15 @@ export function BoardProvider({ children }) {
     });
   }
 
+  function editTask(columnId, taskId, newText) {
+    setColumns((prev) => ({
+      ...prev,
+      [columnId]: prev[columnId].map((t) =>
+        t.id === taskId ? { ...t, text: newText } : t
+      ),
+    }));
+  }
+
   const value = {
     columns,
     columnOrder,
@@ -73,6 +82,7 @@ export function BoardProvider({ children }) {
     moveColumn,
     moveTask,
     setColumns,
+    editTask,
   };
 
   return (

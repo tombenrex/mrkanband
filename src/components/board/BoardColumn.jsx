@@ -1,5 +1,6 @@
 import { useDroppable } from '@dnd-kit/core';
 import { KanbanItem } from '@board';
+import { Link } from 'react-router-dom'; // Lägg till denna import
 
 export default function BoardColumn({
   id,
@@ -20,8 +21,12 @@ export default function BoardColumn({
         isOver ? 'bg-primary/10' : ''
       }`}
     >
-      <h2 className="font-bold text-center mb-3">{title}</h2>
-
+      <Link
+        to={`/column/${id}`}
+        className="font-bold text-center mb-3 block hover:underline"
+      >
+        {title}
+      </Link>
       <div className="flex-1 min-h-[100px] flex flex-col">
         {items.map((task) => (
           <KanbanItem
