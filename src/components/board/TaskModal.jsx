@@ -52,6 +52,10 @@ export default function TaskModal({
               className="link link-primary"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                // Öppna i ny flik och stäng modal
+                onClose();
+              }}
             >
               Länk för att visa routing
             </a>

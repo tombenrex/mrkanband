@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DndContext } from '@dnd-kit/core';
-import BoardColumn from '../components/board/BoardColumn.jsx';
-import TrashArea from '../components/board/TrashArea.jsx';
-import Title from '../components/layout/Title.jsx';
-import Footer from '../components/layout/Footer.jsx';
-import TaskModal from '../components/board/TaskModal.jsx';
-import { useBoard } from '../context/useBoard'; // <-- ändra till din custom hook-fil
+
+import { BoardColumn, TrashArea, TaskModal } from '@board';
+import { Title, Footer } from '@layout';
+import { useBoard } from '@context';
 
 export default function BoardPage() {
   const { columns, columnOrder, addTask, deleteTask, moveTask } = useBoard();
@@ -74,7 +72,7 @@ export default function BoardPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-1 flex flex-col items-center">
+      <main className="flex-1 flex flex-col items-center p-2">
         <Title />
 
         {/* Add Task Form */}
@@ -84,7 +82,7 @@ export default function BoardPage() {
         >
           <input
             type="text"
-            className="input input-bordered input-primary w-64"
+            className="input input-bordered input-primary w-full"
             placeholder="New task"
             value={newTaskText}
             onChange={(e) => setNewTaskText(e.target.value)}
