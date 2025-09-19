@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 p-4 w-full text-center flex justify-center text-sm gap-2">
+    <footer className="bg-primary p-4 w-full text-black text-center flex justify-center text-sm gap-2">
       <p>&copy; {new Date().getFullYear()} Tom Larsson | </p>
       <a
         href="https://github.com/tombenrex"

@@ -69,7 +69,7 @@ export default function TaskModal({
               Task from {task.columnId || columnId}
             </h2>
             <div className="border p-2 rounded-md items-center flex justify-between">
-              <p className="text-xl font-bold mb-4 font-fira break-words">
+              <p className="text-xl font-bold mb-4 font-fira break-words overflow-auto">
                 {task.text}
               </p>
             </div>

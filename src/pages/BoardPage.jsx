@@ -79,7 +79,7 @@ export default function BoardPage() {
         </section>
         <section aria-label="Kanban board" className="w-full">
           <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-            <div className="flex gap-6 justify-center flex-wrap mt-10">
+            <div className="flex gap-7 justify-center mt-10">
               {columnOrder.map((colId) => (
                 <BoardColumn
                   key={colId}

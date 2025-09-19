@@ -24,7 +24,7 @@ export default function BoardColumn({
       </Link>
       <div
         ref={setNodeRef}
-        className={`bg-base-100 rounded-lg shadow-md w-64 flex flex-col border border-primary justify-center items-center ${
+        className={`bg-primary pt-2 rounded-lg shadow-md w-64 flex flex-col border border-primary justify-center items-center ${
           isOver ? 'text-secondary' : ''
         }`}
       >

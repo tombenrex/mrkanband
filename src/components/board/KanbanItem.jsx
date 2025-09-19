@@ -1,5 +1,4 @@
 import { useDraggable } from '@dnd-kit/core';
-import { useState } from 'react';
 
 export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
   const {
@@ -12,18 +11,13 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
   } = useDraggable({
     id,
     data: { type: 'task', columnId },
-    activationConstraint: {
-      delay: 250, // longpress for small screens
-      tolerance: 5,
-    },
+    activationConstraint: { delay: 250, tolerance: 5 },
   });
-
-  const [hovered, setHovered] = useState(false);
 
   return (
     <div
       ref={setNodeRef}
-      className={`bg-base-200 w-full rounded mb-2 shadow flex items-center justify-between border ${
+      className={`kanban-task-row p-1 bg-base-200 w-full rounded mb-2 shadow flex items-center justify-between border ${
         isDragging ? 'opacity-50 z-50' : ''
       }`}
       style={{
@@ -32,15 +26,12 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
           : undefined,
         transition,
       }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
     >
-      {/* --- Drag handle--- */}
-      {hovered && (
+      <div className="flex gap-2 w-full">
         <div
           {...listeners}
           {...attributes}
-          className="mr-2 cursor-grab p-1 bg-primary rounded select-none"
+          className="cursor-grab bg-primary rounded select-none task-actions"
           style={{ touchAction: 'none' }}
           tabIndex={0}
           aria-label="Move task"
@@ -48,30 +39,26 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
         >
           ⠿
         </div>
-      )}
-      {/* --- Clickable text for modal --- */}
-      <span
-        className="flex-1 cursor-pointer"
-        onClick={(e) => {
-          e.stopPropagation();
-          onClick();
-        }}
-      >
-        {text}
-      </span>
+        <span
+          className="flex-1 cursor-pointer break-words p-1"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick();
+          }}
+        >
+          {text}
+        </span>
 
-      {/* --- Delete button on hover --- */}
-      {hovered && (
         <button
           onClick={(e) => {
             e.stopPropagation();
             onDelete(columnId, id);
           }}
-          className="ml-2 btn btn-sm btn-error"
+          className="task-actions btn btn-sm btn-error"
         >
           ✕
         </button>
-      )}
+      </div>
     </div>
   );
 }

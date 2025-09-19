@@ -1,20 +1,28 @@
-@import 'tailwindcss';
-@plugin "daisyui" {
-  themes: all;
+.kanban-task-row .task-actions {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.2s;
 }
-body {
-  font-family: 'Monaspace Radon', cursive;
+.kanban-task-row:hover .task-actions {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+.cursor-grab {
+  height: 32px;
+  min-width: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-select,
-button,
-footer,
-h2,
-a {
-  font-family: 'Fira Code Variable', monospace;
-  font-weight: 700;
+.btn-error2 {
+  height: 30px;
+  width: 10px;
 }
 
-.font-fira {
-  font-family: 'Fira Code Variable', monospace;
+.logo-img {
+  transition: filter 0.2s;
+}
+.logo-link:hover .logo-img {
+  filter: grayscale(100%) brightness(0.7);
 }

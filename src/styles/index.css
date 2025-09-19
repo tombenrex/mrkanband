@@ -1,13 +1,20 @@
-/* main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
+@import 'tailwindcss';
+@plugin "daisyui" {
+  themes: all;
+}
+body {
+  font-family: 'Monaspace Radon', cursive;
+}
 
-/* container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-} */
+select,
+button,
+footer,
+h2,
+a {
+  font-family: 'Fira Code Variable', monospace;
+  font-weight: 700;
+}
+
+.font-fira {
+  font-family: 'Fira Code Variable', monospace;
+}
