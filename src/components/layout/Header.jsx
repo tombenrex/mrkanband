@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export default function Header() {
   return (
     <header className="w-full border-b-2 border-secondary">
-      <Link to="/" className="logo-link" aria-label="Start page">
+      <Link to="/" className="img-link" aria-label="Start page">
         <img
           src="/logo.png"
           alt="Logo"
