@@ -23,5 +23,6 @@
   transition: filter 0.2s;
 }
 .logo-link:hover .logo-img {
-  filter: hue-rotate(200deg) saturate(2) !important;
+  filter: brightness(0) saturate(100%) invert(30%) sepia(100%)
+    hue-rotate(200deg) saturate(600%) brightness(1.2);
 }
