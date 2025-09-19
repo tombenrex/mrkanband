@@ -1,5 +1,6 @@
 import { useKanbanItem } from '../../hooks/useKanbanItem';
 import PropTypes from 'prop-types';
+import './KanbanItem.css';
 
 export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
   const {
@@ -14,7 +15,7 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
   return (
     <div
       ref={setNodeRef}
-      className={`kanban-task-row p-1 bg-base-200 w-full rounded mb-2 shadow flex items-center justify-between border ${
+      className={`kanban-task-row p-1 bg-base-200 w-full rounded mb-2 shadow flex items-center border ${
         isDragging ? 'opacity-50 z-50' : ''
       }`}
       style={{
@@ -24,14 +25,15 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
         transition,
       }}
     >
-      <div className="flex gap-2 w-full">
+      {/* Knappsyskonen! */}
+      <div className="flex gap-2 p-1 w-full">
         <div
           {...listeners}
           {...attributes}
-          className="cursor-grab bg-primary rounded select-none task-actions"
+          className="drag-btn cursor-grab bg-primary rounded select-none"
           style={{ touchAction: 'none' }}
           tabIndex={0}
-          aria-label="Move task"
+          aria-label="Flytta"
           role="button"
         >
           ⠿
@@ -50,7 +52,7 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
             e.stopPropagation();
             onDelete(columnId, id);
           }}
-          className="task-actions btn btn-sm btn-error"
+          className="delete-btn btn btn-sm btn-error"
         >
           ✕
         </button>

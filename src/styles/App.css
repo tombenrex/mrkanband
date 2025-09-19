@@ -1,24 +1,3 @@
-.kanban-task-row .task-actions {
-  opacity: 0 !important;
-  pointer-events: none !important;
-  transition: opacity 0.2s;
-}
-.kanban-task-row:hover .task-actions {
-  opacity: 1 !important;
-  pointer-events: auto !important;
-}
-.cursor-grab {
-  height: 32px;
-  min-width: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-error2 {
-  height: 30px;
-  width: 10px;
-}
 .logo-img {
   transition: filter 0.2s;
 }

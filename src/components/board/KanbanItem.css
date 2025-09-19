@@ -1,0 +1,46 @@
+.kanban-task-row .drag-btn {
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.kanban-task-row .drag-btn:hover,
+.kanban-task-row .drag-btn:focus {
+  opacity: 1;
+}
+
+.kanban-task-row .delete-btn {
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+.kanban-task-row:hover .delete-btn,
+.kanban-task-row:focus-within .delete-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+.kanban-task-row .drag-btn:hover ~ .delete-btn,
+.kanban-task-row .drag-btn:focus ~ .delete-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.kanban-task-row .task-actions {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.2s;
+}
+.kanban-task-row:hover .task-actions {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+.cursor-grab {
+  height: 32px;
+  min-width: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn {
+  height: 30px;
+  width: 10px;
+}
