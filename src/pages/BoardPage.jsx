@@ -98,7 +98,7 @@ export default function BoardPage() {
               </option>
             ))}
           </select>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary hover:btn-secondary">
             Add Task
           </button>
         </form>

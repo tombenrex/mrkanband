@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useBoard } from '@context'; // Glöm inte importen!
+import { useBoard } from '@context';
 
 export default function TaskModal({
   taskId,

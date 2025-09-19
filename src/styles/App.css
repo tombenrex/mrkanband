@@ -5,3 +5,8 @@
 body {
   font-family: 'Monaspace Radon', cursive;
 }
+
+footer {
+  font-family: 'Fira Code Variable', monospace;
+  font-weight: 700;
+}

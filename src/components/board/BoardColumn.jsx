@@ -1,6 +1,6 @@
 import { useDroppable } from '@dnd-kit/core';
 import { KanbanItem } from '@board';
-import { Link } from 'react-router-dom'; // Lägg till denna import
+import { Link } from 'react-router-dom';
 
 export default function BoardColumn({
   id,

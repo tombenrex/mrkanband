@@ -1,8 +1,31 @@
-// src/components/layout/Footer.jsx
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 text-white p-4 w-full text-center flex justify-center text-sm">
-      <p>&copy; {new Date().getFullYear()} My Company. All rights reserved.</p>
+    <footer className="bg-gray-800 p-4 w-full text-center flex justify-center text-sm gap-2">
+      <p>&copy; {new Date().getFullYear()} Schoolassignment | </p>
+      <a
+        href="https://github.com/tombenrex"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center ml-2"
+        aria-label="GitHub"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          className="w-5 h-5 hover:text-secondary"
+        >
+          <path
+            d="M12 0C5.371 0 0 5.373 0 12c0 5.303 3.438 9.799 8.207 11.387.6.111.793-.261.793-.577
+            0-.285-.01-1.04-.016-2.042-3.338.726-4.042-1.611-4.042-1.611-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729
+            1.205.084 1.84 1.239 1.84 1.239 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.606-2.665-.305-5.466-1.334-5.466-5.933
+            0-1.311.469-2.381 1.236-3.221-.124-.304-.535-1.527.117-3.181 0 0 1.008-.323 3.301 1.23a11.47 11.47 0 0 1 3.003-.404c1.019.004
+            2.047.138 3.004.404 2.291-1.553 3.297-1.23 3.297-1.23.653 1.654.242 2.877.118 3.181.77.84 1.235 1.91 1.235 3.221 0 4.61-2.803
+            5.625-5.475 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.899-.015 3.293 0 .32.192.694.801.576C20.565 21.796 24 17.299 24 12
+            24 5.373 18.627 0 12 0z"
+          />
+        </svg>
+      </a>
     </footer>
   );
 }
