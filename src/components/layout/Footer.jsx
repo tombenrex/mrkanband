@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="bg-gray-800 p-4 w-full text-center flex justify-center text-sm gap-2">
-      <p>&copy; {new Date().getFullYear()} Schoolassignment | </p>
+      <p>&copy; {new Date().getFullYear()} Tom Larsson | </p>
       <a
         href="https://github.com/tombenrex"
         target="_blank"

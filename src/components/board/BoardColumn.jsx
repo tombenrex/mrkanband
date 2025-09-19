@@ -15,29 +15,31 @@ export default function BoardColumn({
   });
 
   return (
-    <div
-      ref={setNodeRef}
-      className={`bg-base-100 rounded-lg shadow-md p-4 w-64 flex flex-col border border-primary justify-center items-center ${
-        isOver ? 'bg-primary/10' : ''
-      }`}
-    >
+    <div>
       <Link
         to={`/column/${id}`}
-        className="font-bold text-center mb-3 block hover:underline"
+        className="text-3xl text-center mb-3 block hover:bg-secondary border"
       >
         {title}
       </Link>
-      <div className="flex-1 min-h-[100px] flex flex-col">
-        {items.map((task) => (
-          <KanbanItem
-            key={task.id}
-            id={task.id}
-            text={task.text}
-            columnId={id}
-            onDelete={onDelete}
-            onClick={() => onTaskClick(task.id)}
-          />
-        ))}
+      <div
+        ref={setNodeRef}
+        className={`bg-base-100 rounded-lg shadow-md w-64 flex flex-col border border-primary justify-center items-center ${
+          isOver ? 'text-secondary' : ''
+        }`}
+      >
+        <div className="flex-1 min-h-[100px] flex flex-col w-full break-all p-2">
+          {items.map((task) => (
+            <KanbanItem
+              key={task.id}
+              id={task.id}
+              text={task.text}
+              columnId={id}
+              onDelete={onDelete}
+              onClick={() => onTaskClick(task.id)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

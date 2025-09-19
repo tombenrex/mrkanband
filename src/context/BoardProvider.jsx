@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
-import { BoardContext } from './BoardContext';
+import { BoardContext } from '@board';
 
 const LOCAL_STORAGE_KEY = 'mrkanband-columns';
 

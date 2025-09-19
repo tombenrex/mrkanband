@@ -1,14 +1,11 @@
-import { useBoard } from '../context/useBoard';
 import { useState } from 'react';
-import { DndContext } from '@dnd-kit/core';
-import {
-  BoardColumn,
-  TrashArea,
-  TaskModal,
-  AddTaskForm,
-} from '../components/board';
-import { Header, Footer } from '../components/layout';
 import { useNavigate } from 'react-router-dom';
+
+import { DndContext } from '@dnd-kit/core';
+
+import { useBoard } from '@context';
+import { Header, Footer } from '@layout';
+import { BoardColumn, TrashArea, TaskModal, AddTaskForm } from '@board';
 
 export default function BoardPage() {
   const { columns, columnOrder, addTask, deleteTask, moveTask } = useBoard();
@@ -70,7 +67,7 @@ export default function BoardPage() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 flex flex-col items-center" role="main">
-        <section aria-label="Add new task" className="w-full max-w-2xl">
+        <section aria-label="Add new task" className="w-full">
           <AddTaskForm
             value={newTaskText}
             onChange={setNewTaskText}

@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useBoard } from '../context/useBoard'; // <-- rätt import!
-import TaskModal from '../components/board/TaskModal.jsx';
+import { useBoard } from '@context';
+import { TaskModal } from '@board';
 
 export default function TaskPage() {
   const { columnId, taskId } = useParams();

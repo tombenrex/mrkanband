@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useBoard } from '../context/useBoard';
-import { ColumnModal } from '../components/board';
+
+import { useBoard } from '@context';
+import { ColumnModal } from '@board';
 
 export default function ColumnPage() {
   const { columnId } = useParams();

@@ -11,7 +11,7 @@ export default function AddTaskForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex gap-2 justify-center mt-6 p-5 border-b-2 border-secondary"
+      className="flex gap-2 justify-center p-4 border-b-2 border-secondary"
     >
       <input
         id="new-task"

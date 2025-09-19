@@ -23,7 +23,7 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
   return (
     <div
       ref={setNodeRef}
-      className={`bg-base-200 rounded px-3 py-2 mb-2 shadow flex items-center justify-between border ${
+      className={`bg-base-200 w-full rounded mb-2 shadow flex items-center justify-between border ${
         isDragging ? 'opacity-50 z-50' : ''
       }`}
       style={{
@@ -51,7 +51,7 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
       )}
       {/* --- Clickable text for modal --- */}
       <span
-        className="flex-1 cursor-pointer break-all"
+        className="flex-1 cursor-pointer"
         onClick={(e) => {
           e.stopPropagation();
           onClick();
