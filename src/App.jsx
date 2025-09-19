@@ -1,8 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import BoardPage from './pages/BoardPage.jsx';
-import ColumnPage from './pages/ColumnPage.jsx';
-import TaskPage from './pages/TaskPage.jsx';
-import { BoardProvider } from './context/BoardProvider.jsx';
+import { TaskPage, ColumnPage, BoardPage } from '@pages';
+import { BoardProvider } from '@context';
 import './styles/App.css';
 
 export default function App() {

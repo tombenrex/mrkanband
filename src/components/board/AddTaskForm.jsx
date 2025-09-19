@@ -18,7 +18,7 @@ export default function AddTaskForm({
         name="new-task"
         type="text"
         className="input input-bordered input-primary w-full"
-        placeholder="New task"
+        placeholder="Write Your New Task Here..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
@@ -36,7 +36,7 @@ export default function AddTaskForm({
         ))}
       </select>
       <button type="submit" className="btn btn-primary hover:btn-secondary">
-        Add Task
+        Go
       </button>
     </form>
   );
