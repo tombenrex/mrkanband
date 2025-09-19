@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function useBoardDnD({ addTask, deleteTask, moveTask }) {
+export function useBoardDnD({ deleteTask, moveTask }) {
   const [isTaskDragging, setIsTaskDragging] = useState(false);
 
   function handleDragStart({ active }) {

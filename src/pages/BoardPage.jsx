@@ -5,7 +5,6 @@ import { BoardColumn, TrashArea, TaskModal, AddTaskForm } from '@board';
 
 import { useBoardDnD } from '../hooks/useBoardDnD';
 import { useTaskModalState } from '../hooks/useTaskModalState';
-import { useAddTaskForm } from '../hooks/useAddTaskForm';
 
 export default function BoardPage() {
   const columns = useBoardStore((state) => state.columns);
@@ -14,13 +13,11 @@ export default function BoardPage() {
   const deleteTask = useBoardStore((state) => state.deleteTask);
   const moveTask = useBoardStore((state) => state.moveTask);
 
-  // DnD hook
   const { isTaskDragging, handleDragStart, handleDragEnd } = useBoardDnD({
     deleteTask,
     moveTask,
   });
 
-  // Modal state hook
   const {
     selectedTask,
     modalTask,
@@ -29,25 +26,15 @@ export default function BoardPage() {
     handleCloseModal,
   } = useTaskModalState(columns, columnOrder);
 
-  // Add task form hook - OBS! rätt ordning på argumenten!
-  const { value, addToCol, onChange, onColChange, onSubmit } = useAddTaskForm(
-    columnOrder[0],
-    columnOrder,
-    (text, col) => addTask(col, text) // <--- RÄTT
-  );
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1 flex flex-col items-center" role="main">
         <section aria-label="Add new task" className="w-full">
           <AddTaskForm
-            value={value}
-            onChange={onChange}
-            addToCol={addToCol}
-            onColChange={onColChange}
-            onSubmit={onSubmit}
             columnOrder={columnOrder}
+            onTaskSubmit={(text, col) => addTask(col, text)}
+            initialColumn={columnOrder[0]}
           />
         </section>
         <section aria-label="Kanban board" className="w-full">
