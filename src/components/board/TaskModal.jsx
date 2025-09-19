@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useBoard } from '@context';
+import { ClipboardIcon } from '@heroicons/react/24/outline'; // Heroicons
 
 export default function TaskModal({
   taskId,
@@ -12,6 +13,7 @@ export default function TaskModal({
   const [task, setTask] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState('');
+  const [copied, setCopied] = useState(false);
   const { editTask, deleteTask } = useBoard(); // Hämta från context
 
   useEffect(() => {
@@ -32,6 +34,16 @@ export default function TaskModal({
       ? `/column/${task.columnId || columnId}/task/${task.id}`
       : null;
 
+  async function handleCopyLink() {
+    try {
+      await navigator.clipboard.writeText(window.location.origin + permalink);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      alert('Kunde inte kopiera länk.');
+    }
+  }
+
   function handleSave() {
     editTask(task.columnId || columnId, task.id, editText);
     setIsEditing(false);
@@ -43,41 +55,47 @@ export default function TaskModal({
   }
 
   return createPortal(
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-base-100 rounded-lg p-6 w-96 shadow-lg relative">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 border-4 border-secondary">
+      <div className="bg-base-100 rounded-lg p-6 w-96 shadow-lg relative border-2 border-secondary">
         <button
-          className="btn btn-sm btn-ghost absolute top-2 right-2"
+          className="btn btn-sm btn-ghost absolute top-2 right-2 border-secondary m-2 "
           onClick={onClose}
         >
           &#10005;
         </button>
         {!isEditing ? (
           <>
-            <h2 className="text-xl font-bold mb-4">{task.text}</h2>
-            <p>ID: {task.id}</p>
-            <p>Column: {task.columnId || columnId}</p>
+            <h2 className="text-xl font-bold mb-4 text-primary">
+              Task from {task.columnId || columnId}
+            </h2>
+            <div className="border p-2 rounded-md items-center flex justify-between">
+              <p className="text-xl font-bold mb-4 font-fira">{task.text}</p>
+            </div>
+
             <div className="mt-4 flex gap-2">
               <button
                 className="btn btn-sm btn-primary"
                 onClick={() => setIsEditing(true)}
               >
-                Redigera
+                Edit
               </button>
               <button className="btn btn-sm btn-error" onClick={handleDelete}>
-                Ta bort
+                Delete
+              </button>
+              <button
+                className="btn btn-sm btn-outline flex items-center justify-center p-2"
+                onClick={handleCopyLink}
+                type="button"
+                title={copied ? 'Copy success!' : 'Copy link'}
+              >
+                <ClipboardIcon className="h-5 w-5" />
               </button>
             </div>
             {permalink && (
-              <div className="mt-4">
-                <a
-                  href={permalink}
-                  className="link link-primary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => onClose()}
-                >
-                  Länk för att visa routing
-                </a>
+              <div className="mt-4 flex gap-2 items-center">
+                {copied && (
+                  <span className="text-success ml-2">Copy success!</span>
+                )}
               </div>
             )}
           </>

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DndContext } from '@dnd-kit/core';
-
-import { BoardColumn, TrashArea, TaskModal } from '@board';
+import { AddTaskForm, BoardColumn, TrashArea, TaskModal } from '@board';
 import { Header, Footer } from '@layout';
 import { useBoard } from '@context';
 
@@ -72,55 +71,35 @@ export default function BoardPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-1 flex flex-col items-center p-2">
-        <Header />
-
-        {/* Add Task Form */}
-        <form
-          onSubmit={handleAddTask}
-          className="flex gap-2 justify-center mt-6 mb-2"
-        >
-          <input
-            type="text"
-            className="input input-bordered input-primary w-full"
-            placeholder="New task"
+      <Header />
+      <main className="flex-1 flex flex-col items-center" role="main">
+        <section aria-label="Add new task" className="w-full max-w-2xl">
+          <AddTaskForm
             value={newTaskText}
-            onChange={(e) => setNewTaskText(e.target.value)}
+            onChange={setNewTaskText}
+            addToCol={addToCol}
+            onColChange={setAddToCol}
+            onSubmit={handleAddTask}
+            columnOrder={columnOrder}
           />
-          <select
-            className="select select-primary"
-            value={addToCol}
-            onChange={(e) => setAddToCol(e.target.value)}
-          >
-            {columnOrder.map((colId) => (
-              <option key={colId} value={colId}>
-                {colId.charAt(0).toUpperCase() + colId.slice(1)}
-              </option>
-            ))}
-          </select>
-          <button type="submit" className="btn btn-primary hover:btn-secondary">
-            Add Task
-          </button>
-        </form>
-
-        {/* Columns */}
-        <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-          <div className="flex gap-6 justify-center flex-wrap mt-10">
-            {columnOrder.map((colId) => (
-              <BoardColumn
-                key={colId}
-                id={colId}
-                title={colId.charAt(0).toUpperCase() + colId.slice(1)}
-                items={columns[colId]}
-                onDelete={deleteTask}
-                onTaskClick={handleTaskClick}
-              />
-            ))}
-          </div>
-          <TrashArea visible={isTaskDragging} />
-        </DndContext>
-
-        {/* Task Modal */}
+        </section>
+        <section aria-label="Kanban board" className="w-full">
+          <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+            <div className="flex gap-6 justify-center flex-wrap mt-10">
+              {columnOrder.map((colId) => (
+                <BoardColumn
+                  key={colId}
+                  id={colId}
+                  title={colId.charAt(0).toUpperCase() + colId.slice(1)}
+                  items={columns[colId]}
+                  onDelete={deleteTask}
+                  onTaskClick={handleTaskClick}
+                />
+              ))}
+            </div>
+            <TrashArea visible={isTaskDragging} />
+          </DndContext>
+        </section>
         {selectedTask && (
           <TaskModal
             taskId={selectedTask}

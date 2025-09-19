@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import { DndContext } from '@dnd-kit/core';
 import { BoardColumn, TrashArea, TaskModal } from '@board';
 import { Header, Footer } from '@layout';
@@ -55,34 +54,41 @@ export default function ColumnPage() {
   }
 
   return (
-    <div className="m-2 h-full flex flex-col items-center">
+    <div className="min-h-screen flex flex-col items-center">
       <Header />
-
-      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-        <BoardColumn
-          id={columnId}
-          title={columnId.charAt(0).toUpperCase() + columnId.slice(1)}
-          items={column}
-          onDelete={deleteTask}
-          onTaskClick={handleTaskClick}
-        />
-        <TrashArea visible={isTaskDragging} />
-      </DndContext>
-      <Link to="/" className="mb-4  hover:text-secondary">
-        ← Back
-      </Link>
-      {/* Task Modal */}
-      {selectedTask && (
-        <TaskModal
-          taskId={selectedTask}
-          tasks={tasksWithCol}
-          onClose={() => {
-            setSelectedTask(null);
-            localStorage.removeItem('lastViewedTask');
-          }}
-        />
-      )}
-
+      <main className="flex-1 flex flex-col items-center" role="main">
+        <section
+          aria-label={`Tasks in ${columnId} column`}
+          className="w-full max-w-2xl"
+        >
+          <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+            <BoardColumn
+              id={columnId}
+              title={columnId.charAt(0).toUpperCase() + columnId.slice(1)}
+              items={column}
+              onDelete={deleteTask}
+              onTaskClick={handleTaskClick}
+            />
+            <TrashArea visible={isTaskDragging} />
+          </DndContext>
+        </section>
+        <nav className="mt-6 items-center flex">
+          <Link to="/" className="btn border-secondary hover:text-secondary">
+            ← Back
+          </Link>
+        </nav>
+        {/* Task Modal */}
+        {selectedTask && (
+          <TaskModal
+            taskId={selectedTask}
+            tasks={tasksWithCol}
+            onClose={() => {
+              setSelectedTask(null);
+              localStorage.removeItem('lastViewedTask');
+            }}
+          />
+        )}
+      </main>
       <Footer />
     </div>
   );

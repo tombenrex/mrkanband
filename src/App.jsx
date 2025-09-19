@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import BoardPage from './pages/BoardPage.jsx';
 import ColumnPage from './pages/ColumnPage.jsx';
 import TaskPage from './pages/TaskPage.jsx';
-import { BoardProvider } from './context/BoardProvider.jsx'; // <-- Lägg till denna import!
+import { BoardProvider } from './context/BoardProvider.jsx';
 import './styles/App.css';
 
 export default function App() {
