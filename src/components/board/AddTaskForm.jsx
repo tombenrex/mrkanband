@@ -9,7 +9,10 @@ export default function AddTaskForm({
   columnOrder,
 }) {
   return (
-    <form onSubmit={onSubmit} className="flex gap-2 justify-center mt-6 mb-2">
+    <form
+      onSubmit={onSubmit}
+      className="flex gap-2 justify-center mt-6 p-5 border-b-2 border-secondary"
+    >
       <input
         id="new-task"
         name="new-task"

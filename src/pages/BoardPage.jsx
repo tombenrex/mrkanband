@@ -1,9 +1,14 @@
+import { useBoard } from '../context/useBoard';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { DndContext } from '@dnd-kit/core';
-import { AddTaskForm, BoardColumn, TrashArea, TaskModal } from '@board';
-import { Header, Footer } from '@layout';
-import { useBoard } from '@context';
+import {
+  BoardColumn,
+  TrashArea,
+  TaskModal,
+  AddTaskForm,
+} from '../components/board';
+import { Header, Footer } from '../components/layout';
+import { useNavigate } from 'react-router-dom';
 
 export default function BoardPage() {
   const { columns, columnOrder, addTask, deleteTask, moveTask } = useBoard();
@@ -14,11 +19,6 @@ export default function BoardPage() {
     localStorage.getItem('lastViewedTask') || null
   );
   const navigate = useNavigate();
-
-  // Samla alla tasks med columnId
-  const allTasks = columnOrder.flatMap((colId) =>
-    columns[colId].map((t) => ({ ...t, columnId: colId }))
-  );
 
   // Lägg till task
   function handleAddTask(e) {
@@ -38,13 +38,11 @@ export default function BoardPage() {
     setIsTaskDragging(false);
     if (!over) return;
 
-    // Trash
     if (over.id === 'trash' && active.data?.current?.type === 'task') {
       deleteTask(active.data.current.columnId, active.id);
       return;
     }
 
-    // Flytta task mellan kolumner
     if (
       active.data?.current?.type === 'task' &&
       over.data?.current?.type === 'task'
@@ -57,7 +55,6 @@ export default function BoardPage() {
     }
   }
 
-  // När man klickar på ett kort: navigera till rätt URL
   function handleTaskClick(taskId) {
     const colId = columnOrder.find((colId) =>
       columns[colId].some((t) => t.id === taskId)
@@ -103,8 +100,13 @@ export default function BoardPage() {
         {selectedTask && (
           <TaskModal
             taskId={selectedTask}
-            tasks={allTasks}
-            onClose={() => setSelectedTask(null)}
+            tasks={columnOrder.flatMap((colId) =>
+              columns[colId].map((t) => ({ ...t, columnId: colId }))
+            )}
+            onClose={() => {
+              setSelectedTask(null);
+              localStorage.removeItem('lastViewedTask');
+            }}
           />
         )}
       </main>

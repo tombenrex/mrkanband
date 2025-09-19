@@ -51,7 +51,7 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
       )}
       {/* --- Clickable text for modal --- */}
       <span
-        className="flex-1 cursor-pointer break-words"
+        className="flex-1 cursor-pointer break-all"
         onClick={(e) => {
           e.stopPropagation();
           onClick();
