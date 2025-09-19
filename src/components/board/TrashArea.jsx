@@ -1,9 +1,10 @@
-import { useDroppable } from '@dnd-kit/core';
+import { useTrashArea } from '../../hooks/useTrashArea';
 import { TrashIcon as TrashOutline } from '@heroicons/react/24/outline';
 import { TrashIcon as TrashSolid } from '@heroicons/react/24/solid';
+import PropTypes from 'prop-types';
 
 export default function TrashArea({ visible }) {
-  const { setNodeRef, isOver } = useDroppable({ id: 'trash' });
+  const { setNodeRef, isOver } = useTrashArea();
 
   return (
     <div
@@ -26,3 +27,7 @@ export default function TrashArea({ visible }) {
     </div>
   );
 }
+
+TrashArea.propTypes = {
+  visible: PropTypes.bool.isRequired,
+};

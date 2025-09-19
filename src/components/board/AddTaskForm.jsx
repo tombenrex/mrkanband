@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
+import { useAddTaskForm } from '../../hooks/useAddTaskForm';
 
 export default function AddTaskForm({
-  value,
-  onChange,
-  addToCol,
-  onColChange,
-  onSubmit,
   columnOrder,
+  onTaskSubmit,
+  initialColumn,
 }) {
+  const { value, addToCol, onChange, onColChange, onSubmit } = useAddTaskForm(
+    initialColumn,
+    columnOrder,
+    onTaskSubmit
+  );
+
   return (
     <form
       onSubmit={onSubmit}
@@ -43,10 +47,7 @@ export default function AddTaskForm({
 }
 
 AddTaskForm.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  addToCol: PropTypes.string.isRequired,
-  onColChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
   columnOrder: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onTaskSubmit: PropTypes.func.isRequired,
+  initialColumn: PropTypes.string, // optional
 };

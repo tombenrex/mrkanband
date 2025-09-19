@@ -1,4 +1,5 @@
-import { useDraggable } from '@dnd-kit/core';
+import { useKanbanItem } from '../../hooks/useKanbanItem';
+import PropTypes from 'prop-types';
 
 export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
   const {
@@ -8,11 +9,7 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
     transform,
     transition,
     isDragging,
-  } = useDraggable({
-    id,
-    data: { type: 'task', columnId },
-    activationConstraint: { delay: 250, tolerance: 5 },
-  });
+  } = useKanbanItem(id, columnId);
 
   return (
     <div
@@ -48,7 +45,6 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
         >
           {text}
         </span>
-
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -62,3 +58,11 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
     </div>
   );
 }
+
+KanbanItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  columnId: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+};

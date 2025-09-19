@@ -1,42 +1,22 @@
-import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useBoardStore } from '../../store/useBoardStore';
 import { ClipboardIcon } from '@heroicons/react/24/outline';
+import PropTypes from 'prop-types';
+import { useTaskModal } from '../../hooks/useTaskModal';
 
 export default function TaskModal({ task, onClose, showPermalink, columnId }) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editText, setEditText] = useState(task.text || '');
-  const [copied, setCopied] = useState(false);
-
-  const editTask = useBoardStore((state) => state.editTask);
-  const deleteTask = useBoardStore((state) => state.deleteTask);
+  const {
+    isEditing,
+    setIsEditing,
+    editText,
+    setEditText,
+    copied,
+    permalink,
+    handleCopyLink,
+    handleSave,
+    handleDelete,
+  } = useTaskModal(task, columnId, showPermalink);
 
   if (!task) return null;
-
-  const permalink =
-    showPermalink !== false && (columnId || task.columnId) && task.id
-      ? `/column/${columnId || task.columnId}/task/${task.id}`
-      : null;
-
-  async function handleCopyLink() {
-    try {
-      await navigator.clipboard.writeText(window.location.origin + permalink);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch {
-      alert('Failed to copy link');
-    }
-  }
-
-  function handleSave() {
-    editTask(columnId || task.columnId, task.id, editText);
-    setIsEditing(false);
-  }
-
-  function handleDelete() {
-    deleteTask(columnId || task.columnId, task.id);
-    onClose();
-  }
 
   return createPortal(
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 border-4 border-secondary">
@@ -65,7 +45,10 @@ export default function TaskModal({ task, onClose, showPermalink, columnId }) {
               >
                 Edit
               </button>
-              <button className="btn btn-sm btn-error" onClick={handleDelete}>
+              <button
+                className="btn btn-sm btn-error"
+                onClick={() => handleDelete(onClose)}
+              >
                 Delete
               </button>
               <button
@@ -111,3 +94,14 @@ export default function TaskModal({ task, onClose, showPermalink, columnId }) {
     document.body
   );
 }
+
+TaskModal.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+    columnId: PropTypes.string,
+  }),
+  onClose: PropTypes.func.isRequired,
+  showPermalink: PropTypes.bool,
+  columnId: PropTypes.string,
+};

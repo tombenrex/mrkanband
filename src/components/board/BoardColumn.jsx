@@ -1,6 +1,7 @@
-import { useDroppable } from '@dnd-kit/core';
-import { KanbanItem } from '@board';
+import { useBoardColumn } from '../../hooks/useBoardColumn';
+import KanbanItem from './KanbanItem';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default function BoardColumn({
   id,
@@ -9,10 +10,7 @@ export default function BoardColumn({
   onDelete,
   onTaskClick,
 }) {
-  const { setNodeRef, isOver } = useDroppable({
-    id,
-    data: { type: 'task', columnId: id },
-  });
+  const { setNodeRef, isOver } = useBoardColumn(id);
 
   return (
     <div>
@@ -44,3 +42,16 @@ export default function BoardColumn({
     </div>
   );
 }
+
+BoardColumn.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onTaskClick: PropTypes.func.isRequired,
+};
