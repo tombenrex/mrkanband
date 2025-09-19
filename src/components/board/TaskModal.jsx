@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useBoard } from '@context';
-import { ClipboardIcon } from '@heroicons/react/24/outline'; // Heroicons
+import { ClipboardIcon } from '@heroicons/react/24/outline';
 
 export default function TaskModal({
   taskId,
@@ -14,7 +14,7 @@ export default function TaskModal({
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState('');
   const [copied, setCopied] = useState(false);
-  const { editTask, deleteTask } = useBoard(); // Hämta från context
+  const { editTask, deleteTask } = useBoard();
 
   useEffect(() => {
     if (!taskId) return;
@@ -39,8 +39,8 @@ export default function TaskModal({
       await navigator.clipboard.writeText(window.location.origin + permalink);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    } catch (err) {
-      alert('Kunde inte kopiera länk.');
+    } catch {
+      alert('Failed to copy link');
     }
   }
 
@@ -69,7 +69,9 @@ export default function TaskModal({
               Task from {task.columnId || columnId}
             </h2>
             <div className="border p-2 rounded-md items-center flex justify-between">
-              <p className="text-xl font-bold mb-4 font-fira">{task.text}</p>
+              <p className="text-xl font-bold mb-4 font-fira break-words">
+                {task.text}
+              </p>
             </div>
 
             <div className="mt-4 flex gap-2">

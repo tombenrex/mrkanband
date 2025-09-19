@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { DndContext } from '@dnd-kit/core';
-import { BoardColumn, TrashArea, TaskModal } from '@board';
+import { BoardColumn, TrashArea, TaskModal, ColumnModal } from '@board';
 import { Header, Footer } from '@layout';
 import { useBoard } from '@context';
 
@@ -12,6 +12,7 @@ export default function ColumnPage() {
   const [selectedTask, setSelectedTask] = useState(
     localStorage.getItem('lastViewedTask') || null
   );
+  const [showColumnModal, setShowColumnModal] = useState(false); // Om du vill använda det
   const navigate = useNavigate();
 
   const column = columns[columnId];
@@ -19,23 +20,19 @@ export default function ColumnPage() {
 
   const tasksWithCol = column.map((t) => ({ ...t, columnId }));
 
-  // Drag start
   function handleDragStart({ active }) {
     if (active.data?.current?.type === 'task') setIsTaskDragging(true);
   }
 
-  // Drag end
   function handleDragEnd({ active, over }) {
     setIsTaskDragging(false);
     if (!over) return;
 
-    // Trash
     if (over.id === 'trash' && active.data?.current?.type === 'task') {
       deleteTask(active.data.current.columnId, active.id);
       return;
     }
 
-    // Flytta task inom eller mellan kolumner
     if (
       active.data?.current?.type === 'task' &&
       over.data?.current?.type === 'task'
@@ -48,23 +45,27 @@ export default function ColumnPage() {
     }
   }
 
-  // Navigera till taskens URL när man klickar på ett kort
   function handleTaskClick(taskId) {
     navigate(`/column/${columnId}/task/${taskId}`);
   }
 
+  const columnTitle =
+    columnId === 'todo'
+      ? 'Todo'
+      : columnId.charAt(0).toUpperCase() + columnId.slice(1);
+
   return (
     <div className="min-h-screen flex flex-col items-center">
       <Header />
-      <main className="flex-1 flex flex-col items-center" role="main">
+      <main className="flex-1 flex flex-col items-center w-full" role="main">
+        <h1 className="text-3xl font-bold my-6">{columnTitle}</h1>
         <section
           aria-label={`Tasks in ${columnId} column`}
-          className="w-full max-w-2xl"
+          className="flex flex-1 w-full justify-center items-center flex-col"
         >
           <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
             <BoardColumn
               id={columnId}
-              title={columnId.charAt(0).toUpperCase() + columnId.slice(1)}
               items={column}
               onDelete={deleteTask}
               onTaskClick={handleTaskClick}
@@ -86,6 +87,15 @@ export default function ColumnPage() {
               setSelectedTask(null);
               localStorage.removeItem('lastViewedTask');
             }}
+          />
+        )}
+        {/* Column Modal, om du vill använda */}
+        {showColumnModal && (
+          <ColumnModal
+            columnId={columnId}
+            columnName={columnTitle}
+            tasks={column}
+            onClose={() => setShowColumnModal(false)}
           />
         )}
       </main>

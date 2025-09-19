@@ -17,7 +17,7 @@ export default function BoardColumn({
   return (
     <div
       ref={setNodeRef}
-      className={`bg-base-100 rounded-lg shadow-md p-4 w-64 flex flex-col border border-primary ${
+      className={`bg-base-100 rounded-lg shadow-md p-4 w-64 flex flex-col border border-primary justify-center items-center ${
         isOver ? 'bg-primary/10' : ''
       }`}
     >

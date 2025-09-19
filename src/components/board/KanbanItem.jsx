@@ -13,7 +13,7 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
     id,
     data: { type: 'task', columnId },
     activationConstraint: {
-      delay: 250, // långtryck på mobil
+      delay: 250, // longpress for small screens
       tolerance: 5,
     },
   });
@@ -35,22 +35,23 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* --- Drag handle, ENDA dragytan --- */}
-      <div
-        {...listeners}
-        {...attributes}
-        className="mr-2 cursor-move p-1 bg-primary rounded select-none"
-        style={{ touchAction: 'none' }}
-        tabIndex={0} // gör den fokuserbar för tillgänglighet
-        aria-label="Flytta"
-        role="button"
-      >
-        ⠿
-      </div>
-
-      {/* --- Klickbar text för modal --- */}
+      {/* --- Drag handle--- */}
+      {hovered && (
+        <div
+          {...listeners}
+          {...attributes}
+          className="mr-2 cursor-grab p-1 bg-primary rounded select-none"
+          style={{ touchAction: 'none' }}
+          tabIndex={0}
+          aria-label="Move task"
+          role="button"
+        >
+          ⠿
+        </div>
+      )}
+      {/* --- Clickable text for modal --- */}
       <span
-        className="flex-1 cursor-pointer"
+        className="flex-1 cursor-pointer break-words"
         onClick={(e) => {
           e.stopPropagation();
           onClick();
@@ -59,7 +60,7 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
         {text}
       </span>
 
-      {/* --- Delete knapp, visas endast vid hover --- */}
+      {/* --- Delete button on hover --- */}
       {hovered && (
         <button
           onClick={(e) => {
