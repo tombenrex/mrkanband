@@ -1,11 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom';
-
-import { useBoard } from '@context';
+import { useBoardStore } from '../store/useBoardStore';
 import { ColumnModal } from '@board';
 
 export default function ColumnPage() {
   const { columnId } = useParams();
-  const { columns } = useBoard();
+  const columns = useBoardStore((state) => state.columns);
   const navigate = useNavigate();
 
   const column = columns[columnId];

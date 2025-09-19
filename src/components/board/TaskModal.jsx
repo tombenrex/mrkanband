@@ -1,37 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useBoard } from '@context';
+import { useBoardStore } from '../../store/useBoardStore';
 import { ClipboardIcon } from '@heroicons/react/24/outline';
 
-export default function TaskModal({
-  taskId,
-  tasks,
-  onClose,
-  showPermalink,
-  columnId,
-}) {
-  const [task, setTask] = useState(null);
+export default function TaskModal({ task, onClose, showPermalink, columnId }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editText, setEditText] = useState('');
+  const [editText, setEditText] = useState(task.text || '');
   const [copied, setCopied] = useState(false);
-  const { editTask, deleteTask } = useBoard();
 
-  useEffect(() => {
-    if (!taskId) return;
-    const found = tasks.find((t) => t.id === taskId);
-    setTask(found);
-    setEditText(found?.text || '');
-    localStorage.setItem('lastViewedTask', taskId);
-    return () => {
-      localStorage.removeItem('lastViewedTask');
-    };
-  }, [taskId, tasks]);
+  const editTask = useBoardStore((state) => state.editTask);
+  const deleteTask = useBoardStore((state) => state.deleteTask);
 
   if (!task) return null;
 
   const permalink =
-    showPermalink !== false && task.columnId && task.id
-      ? `/column/${task.columnId || columnId}/task/${task.id}`
+    showPermalink !== false && (columnId || task.columnId) && task.id
+      ? `/column/${columnId || task.columnId}/task/${task.id}`
       : null;
 
   async function handleCopyLink() {
@@ -45,12 +29,12 @@ export default function TaskModal({
   }
 
   function handleSave() {
-    editTask(task.columnId || columnId, task.id, editText);
+    editTask(columnId || task.columnId, task.id, editText);
     setIsEditing(false);
   }
 
   function handleDelete() {
-    deleteTask(task.columnId || columnId, task.id);
+    deleteTask(columnId || task.columnId, task.id);
     onClose();
   }
 
@@ -66,7 +50,7 @@ export default function TaskModal({
         {!isEditing ? (
           <>
             <h2 className="text-xl font-bold mb-4 text-primary">
-              Task from {task.columnId || columnId}
+              Task from {columnId || task.columnId}
             </h2>
             <div className="border p-2 rounded-md items-center flex justify-between">
               <p className="text-xl font-bold mb-4 font-fira break-words overflow-auto">

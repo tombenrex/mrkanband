@@ -1,21 +1,25 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { DndContext } from '@dnd-kit/core';
+import { useBoardStore } from '../store/useBoardStore';
 
-import { useBoard } from '@context';
 import { Header, Footer } from '@layout';
 import { BoardColumn, TrashArea, TaskModal, AddTaskForm } from '@board';
 
 export default function BoardPage() {
-  const { columns, columnOrder, addTask, deleteTask, moveTask } = useBoard();
+  // Hämta state och actions från Zustand-store
+  const columns = useBoardStore((state) => state.columns);
+  const columnOrder = useBoardStore((state) => state.columnOrder);
+  const addTask = useBoardStore((state) => state.addTask);
+  const deleteTask = useBoardStore((state) => state.deleteTask);
+  const moveTask = useBoardStore((state) => state.moveTask);
+
   const [newTaskText, setNewTaskText] = useState('');
   const [addToCol, setAddToCol] = useState(columnOrder[0] || 'todo');
   const [isTaskDragging, setIsTaskDragging] = useState(false);
   const [selectedTask, setSelectedTask] = useState(
     localStorage.getItem('lastViewedTask') || null
   );
-  const navigate = useNavigate();
 
   // Lägg till task
   function handleAddTask(e) {
@@ -57,10 +61,29 @@ export default function BoardPage() {
       columns[colId].some((t) => t.id === taskId)
     );
     if (colId) {
-      navigate(`/column/${colId}/task/${taskId}`);
+      // Spara senaste visade task (valfritt, kan tas bort)
+      localStorage.setItem('lastViewedTask', taskId);
+      setSelectedTask(taskId);
     } else {
       setSelectedTask(taskId);
     }
+  }
+
+  function handleCloseModal() {
+    setSelectedTask(null);
+    localStorage.removeItem('lastViewedTask');
+  }
+
+  // Hitta rätt task och kolumn till modalen
+  let modalTask = null;
+  let modalCol = null;
+  if (selectedTask) {
+    modalCol = columnOrder.find((colId) =>
+      columns[colId].some((t) => t.id === selectedTask)
+    );
+    modalTask = modalCol
+      ? columns[modalCol].find((t) => t.id === selectedTask)
+      : null;
   }
 
   return (
@@ -94,16 +117,11 @@ export default function BoardPage() {
             <TrashArea visible={isTaskDragging} />
           </DndContext>
         </section>
-        {selectedTask && (
+        {selectedTask && modalTask && modalCol && (
           <TaskModal
-            taskId={selectedTask}
-            tasks={columnOrder.flatMap((colId) =>
-              columns[colId].map((t) => ({ ...t, columnId: colId }))
-            )}
-            onClose={() => {
-              setSelectedTask(null);
-              localStorage.removeItem('lastViewedTask');
-            }}
+            task={modalTask}
+            columnId={modalCol}
+            onClose={handleCloseModal}
           />
         )}
       </main>

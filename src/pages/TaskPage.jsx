@@ -1,10 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useBoard } from '@context';
+import { useBoardStore } from '../store/useBoardStore';
 import { TaskModal } from '@board';
 
 export default function TaskPage() {
   const { columnId, taskId } = useParams();
-  const { columns } = useBoard();
+  const columns = useBoardStore((state) => state.columns);
   const navigate = useNavigate();
 
   const column = columns[columnId];
