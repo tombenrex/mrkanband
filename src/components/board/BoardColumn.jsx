@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useBoardColumn } from '@hooks';
-import KanbanItem from './KanbanItem';
+import { KanbanItem } from '@board';
 
 export default function BoardColumn({
   id,
@@ -13,18 +13,19 @@ export default function BoardColumn({
   const { setNodeRef, isOver } = useBoardColumn(id);
 
   return (
-    <div>
+    <div className="flex flex-col items-center min-w-[250px] max-w-xs flex-1 mx-1">
       <Link
         to={`/column/${id}`}
-        className="text-3xl text-center mb-3 block hover:bg-secondary border"
+        className="text-3xl text-center mb-3 block hover:bg-secondary border rounded w-full"
       >
         {title}
       </Link>
       <div
         ref={setNodeRef}
-        className={`bg-primary pt-2 rounded-lg shadow-md w-64 flex flex-col border border-primary justify-center items-center ${
-          isOver ? 'text-secondary' : ''
+        className={`bg-primary pt-2 rounded-lg shadow-md w-full flex flex-col border border-primary justify-center items-center transition-colors duration-150 ${
+          isOver ? 'ring-2 ring-secondary' : ''
         }`}
+        style={{ minHeight: 180 }}
       >
         <div className="flex-1 min-h-[100px] flex flex-col w-full break-all p-2">
           {items.map((task) => (
@@ -53,5 +54,5 @@ BoardColumn.propTypes = {
     })
   ).isRequired,
   editMode: PropTypes.bool,
-  onTaskClick: PropTypes.func, // NY: vidarebefordras till KanbanItem
+  onTaskClick: PropTypes.func,
 };

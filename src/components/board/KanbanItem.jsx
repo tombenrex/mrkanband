@@ -16,19 +16,23 @@ export default function KanbanItem({ id, text, columnId, editMode, onClick }) {
       ref={editMode ? setNodeRef : undefined}
       {...(editMode ? attributes : {})}
       {...(editMode ? listeners : {})}
-      className={`kanban-task-row p-1 bg-base-200 w-full rounded mb-2 shadow flex items-center border
+      className={`kanban-task-row p-2 bg-base-200 w-full rounded mb-2 shadow flex items-center border min-h-10 select-none
         ${isDragging ? 'opacity-50 z-50' : ''}
+        ${editMode ? 'cursor-grab' : ''}
       `}
-      style={
-        editMode && transform
+      style={{
+        ...(editMode && transform
           ? {
               transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
               transition,
-              cursor: isDragging ? 'grabbing' : 'grab',
-              touchAction: 'none',
             }
-          : {}
-      }
+          : {}),
+        ...(editMode
+          ? {
+              touchAction: 'none', // ALLTID när editMode, bra för mobil
+            }
+          : {}),
+      }}
       tabIndex={onClick ? 0 : -1}
       onClick={onClick}
       onKeyDown={
@@ -46,5 +50,5 @@ KanbanItem.propTypes = {
   text: PropTypes.string.isRequired,
   columnId: PropTypes.string.isRequired,
   editMode: PropTypes.bool,
-  onClick: PropTypes.func, // NY: för modal-öppning
+  onClick: PropTypes.func,
 };
