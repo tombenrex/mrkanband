@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useKanbanItem } from '@hooks';
-import './KanbanItem.css';
 
 export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
   const {
@@ -30,10 +29,10 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
         <div
           {...listeners}
           {...attributes}
-          className="drag-btn cursor-grab bg-primary rounded select-none"
+          className="drag-btn cursor-grab bg-primary rounded select-none opacity-0 h-18 w-4 text-center"
           style={{ touchAction: 'none' }}
           tabIndex={0}
-          aria-label="Flytta"
+          aria-label="Move task"
           role="button"
         >
           ⠿
@@ -52,7 +51,7 @@ export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {
             e.stopPropagation();
             onDelete(columnId, id);
           }}
-          className="delete-btn btn btn-sm btn-error"
+          className="delete-btn btn btn-sm btn-error opacity-0"
         >
           ✕
         </button>
