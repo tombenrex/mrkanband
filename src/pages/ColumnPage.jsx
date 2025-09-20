@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useBoardStore } from '../store/useBoardStore';
+import { useBoardStore } from '@store';
 import { ColumnModal } from '@board';
 
 export default function ColumnPage() {

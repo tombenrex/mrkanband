@@ -1,8 +1,7 @@
-import { useTrashArea } from '../../hooks/useTrashArea';
+import PropTypes from 'prop-types';
 import { TrashIcon as TrashOutline } from '@heroicons/react/24/outline';
 import { TrashIcon as TrashSolid } from '@heroicons/react/24/solid';
-import PropTypes from 'prop-types';
-
+import { useTrashArea } from '@hooks';
 export default function TrashArea({ visible }) {
   const { setNodeRef, isOver } = useTrashArea();
 

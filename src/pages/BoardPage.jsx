@@ -1,10 +1,8 @@
 import { DndContext } from '@dnd-kit/core';
-import { useBoardStore } from '../store/useBoardStore';
+import { useBoardStore } from '@store';
 import { Header, Footer } from '@layout';
 import { BoardColumn, TrashArea, TaskModal, AddTaskForm } from '@board';
-
-import { useBoardDnD } from '../hooks/useBoardDnD';
-import { useTaskModalState } from '../hooks/useTaskModalState';
+import { useBoardDnD, useTaskModalState } from '@hooks';
 
 export default function BoardPage() {
   const columns = useBoardStore((state) => state.columns);

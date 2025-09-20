@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useAddTaskForm } from '../../hooks/useAddTaskForm';
+import { useAddTaskForm } from '@hooks';
 
 export default function AddTaskForm({
   columnOrder,

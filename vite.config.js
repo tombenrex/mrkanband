@@ -16,6 +16,8 @@ export default defineConfig({
       '@layout': resolve(__dirname, 'src/components/layout'),
       '@context': resolve(__dirname, 'src/context'),
       '@pages': resolve(__dirname, 'src/pages'),
+      '@hooks': resolve(__dirname, 'src/hooks'),
+      '@store': resolve(__dirname, 'src/store'),
     },
   },
 });

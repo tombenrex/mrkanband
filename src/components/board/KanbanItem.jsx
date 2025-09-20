@@ -1,5 +1,5 @@
-import { useKanbanItem } from '../../hooks/useKanbanItem';
 import PropTypes from 'prop-types';
+import { useKanbanItem } from '@hooks';
 import './KanbanItem.css';
 
 export default function KanbanItem({ id, text, columnId, onDelete, onClick }) {

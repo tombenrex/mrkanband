@@ -1,7 +1,7 @@
-import { useBoardColumn } from '../../hooks/useBoardColumn';
-import KanbanItem from './KanbanItem';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useBoardColumn } from '@hooks';
+import { KanbanItem } from '@board';
 
 export default function BoardColumn({
   id,

@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
 import { ClipboardIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
-import { useTaskModal } from '../../hooks/useTaskModal';
+import { useTaskModal } from '@hooks';
 
 export default function TaskModal({ task, onClose, showPermalink, columnId }) {
   const {
