@@ -10,8 +10,8 @@ export default function ColumnModal({
   if (!columnId) return null;
 
   return createPortal(
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 border-4 border-secondary">
-      <div className="bg-base-100 rounded-lg p-2 w-96 shadow-lg relative border-2 border-secondary">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-3 border-4 border-secondary">
+      <div className="bg-base-100 rounded-lg p-5 w-full shadow-lg relative border-2 border-secondary">
         <button
           className="btn btn-sm btn-ghost absolute top-2 right-2 border-secondary"
           onClick={onClose}
@@ -21,9 +21,9 @@ export default function ColumnModal({
         <h2 className="text-xl font-bold mb-4">{columnName || columnId}</h2>
 
         {tasks.length === 0 ? (
-          <div className="mb-4 text-center text-secondary">No tasks</div>
+          <div className="text-center text-secondary">No tasks</div>
         ) : (
-          <ul className="mb-4 list-disc pl-6 max-h-40 overflow-y-auto">
+          <ul className="p-2 h-64 list-disc max-h-40 overflow-y-auto">
             {tasks.map((t) => (
               <li key={t.id}>{t.text}</li>
             ))}

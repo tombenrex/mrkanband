@@ -19,8 +19,8 @@ export default function TaskModal({ task, onClose, showPermalink, columnId }) {
   if (!task) return null;
 
   return createPortal(
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 border-4 border-secondary">
-      <div className="bg-base-100 rounded-lg p-6 w-96 shadow-lg relative border-2 border-secondary">
+    <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 border-4 border-secondary p-2">
+      <div className="bg-base-100 rounded-lg p-6 w-full shadow-lg relative border-2 border-secondary">
         <button
           className="btn btn-sm btn-ghost absolute top-2 right-2 border-secondary m-2 "
           onClick={onClose}
@@ -33,7 +33,7 @@ export default function TaskModal({ task, onClose, showPermalink, columnId }) {
               Task from {columnId || task.columnId}
             </h2>
             <div className="border p-2 rounded-md items-center flex justify-between">
-              <p className="text-xl font-bold mb-4 font-fira break-words overflow-auto">
+              <p className="mb-4 font-fira break-words overflow-auto">
                 {task.text}
               </p>
             </div>
@@ -71,8 +71,10 @@ export default function TaskModal({ task, onClose, showPermalink, columnId }) {
         ) : (
           <>
             <input
-              className="input input-bordered w-full mb-3"
+              className="input input-bordered w-64 mb-4"
               value={editText}
+              id="editText"
+              name="editText"
               onChange={(e) => setEditText(e.target.value)}
               autoFocus
             />

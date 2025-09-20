@@ -92,7 +92,6 @@ export default function BoardPage() {
         )}
       </main>
 
-      {/* Move mode icon button UNDER the board, always centered & responsive */}
       <div className="flex justify-center my-3 sm:my-6 z-20 w-full">
         <button
           onClick={() => setEditMode((v) => !v)}
