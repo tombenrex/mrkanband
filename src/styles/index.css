@@ -2,17 +2,8 @@
 @plugin "daisyui" {
   themes: all;
 }
-body {
+.font-monaspace {
   font-family: 'Monaspace Radon', cursive;
-}
-
-select,
-button,
-footer,
-h2,
-a {
-  font-family: 'Fira Code Variable', monospace;
-  font-weight: 700;
 }
 
 .font-fira {

@@ -5,8 +5,3 @@
   filter: brightness(0) saturate(100%) invert(30%) sepia(100%)
     hue-rotate(200deg) saturate(600%) brightness(1.2);
 }
-
-div.drag-btn:hover,
-button.delete-btn:hover {
-  opacity: 1 !important;
-}

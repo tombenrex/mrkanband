@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useBoardColumn } from '@hooks';
-import { KanbanItem } from '@board';
+import KanbanItem from './KanbanItem';
 
 export default function BoardColumn({
   id,
   title,
   items,
-  onDelete,
+  editMode,
   onTaskClick,
 }) {
   const { setNodeRef, isOver } = useBoardColumn(id);
@@ -33,8 +33,8 @@ export default function BoardColumn({
               id={task.id}
               text={task.text}
               columnId={id}
-              onDelete={onDelete}
-              onClick={() => onTaskClick(task.id)}
+              editMode={editMode}
+              onClick={() => onTaskClick && onTaskClick(task.id)}
             />
           ))}
         </div>
@@ -52,6 +52,6 @@ BoardColumn.propTypes = {
       text: PropTypes.string.isRequired,
     })
   ).isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onTaskClick: PropTypes.func.isRequired,
+  editMode: PropTypes.bool,
+  onTaskClick: PropTypes.func, // NY: vidarebefordras till KanbanItem
 };

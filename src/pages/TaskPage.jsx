@@ -17,8 +17,7 @@ export default function TaskPage() {
 
   return (
     <TaskModal
-      taskId={taskId}
-      tasks={column.map((t) => ({ ...t, columnId }))}
+      task={task}
       onClose={() => {
         navigate(-1);
         localStorage.removeItem('lastViewedTask');

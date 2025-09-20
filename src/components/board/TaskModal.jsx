@@ -77,7 +77,11 @@ export default function TaskModal({ task, onClose, showPermalink, columnId }) {
               autoFocus
             />
             <div className="flex gap-2">
-              <button className="btn btn-sm btn-success" onClick={handleSave}>
+              <button
+                className="btn btn-sm btn-success"
+                onClick={editText.trim() !== '' ? handleSave : undefined}
+                disabled={editText.trim() === ''}
+              >
                 Spara
               </button>
               <button
@@ -99,9 +103,9 @@ TaskModal.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    columnId: PropTypes.string,
+    columnId: PropTypes.string.isRequired,
   }),
   onClose: PropTypes.func.isRequired,
   showPermalink: PropTypes.bool,
-  columnId: PropTypes.string,
+  columnId: PropTypes.string.isRequired,
 };

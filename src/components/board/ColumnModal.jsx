@@ -1,4 +1,5 @@
 import { createPortal } from 'react-dom';
+import PropTypes from 'prop-types';
 
 export default function ColumnModal({
   columnId,
@@ -19,11 +20,15 @@ export default function ColumnModal({
         </button>
         <h2 className="text-xl font-bold mb-4">{columnName || columnId}</h2>
 
-        <ul className="mb-4 list-disc pl-6 max-h-40 overflow-y-auto">
-          {tasks.map((t) => (
-            <li key={t.id}>{t.text}</li>
-          ))}
-        </ul>
+        {tasks.length === 0 ? (
+          <div className="mb-4 text-center text-secondary">No tasks</div>
+        ) : (
+          <ul className="mb-4 list-disc pl-6 max-h-40 overflow-y-auto">
+            {tasks.map((t) => (
+              <li key={t.id}>{t.text}</li>
+            ))}
+          </ul>
+        )}
         <div className="text-secondary text-end mt-4 font-extrabold">
           {tasks.length}
           <span className="font-semibold"> tasks</span>
@@ -33,3 +38,15 @@ export default function ColumnModal({
     document.body
   );
 }
+
+ColumnModal.propTypes = {
+  columnId: PropTypes.string.isRequired,
+  columnName: PropTypes.string,
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ),
+  onClose: PropTypes.func.isRequired,
+};

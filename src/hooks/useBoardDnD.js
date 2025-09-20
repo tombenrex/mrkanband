@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
-export function useBoardDnD({ deleteTask, moveTask }) {
+export function useBoardDnD({ deleteTask, moveTask, editMode }) {
   const [isTaskDragging, setIsTaskDragging] = useState(false);
 
   function handleDragStart({ active }) {
+    if (!editMode) return;
     if (active.data?.current?.type === 'task') setIsTaskDragging(true);
   }
 
   function handleDragEnd({ active, over }) {
     setIsTaskDragging(false);
+    if (!editMode) return;
     if (!over) return;
 
     if (over.id === 'trash' && active.data?.current?.type === 'task') {
