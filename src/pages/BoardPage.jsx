@@ -1,15 +1,9 @@
 import { useState } from 'react';
-import { DndContext, DragOverlay } from '@dnd-kit/core';
+import { DndContext } from '@dnd-kit/core';
 import { useBoardStore } from '@store';
 import { Header, Footer } from '@layout';
 
-import {
-  BoardColumn,
-  TrashArea,
-  TaskModal,
-  AddTaskForm,
-  KanbanItem,
-} from '@board';
+import { BoardColumn, TrashArea, TaskModal, AddTaskForm } from '@board';
 import { useBoardDnD, useTaskModalState } from '@hooks';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 
@@ -22,16 +16,10 @@ export default function BoardPage() {
   const deleteTask = useBoardStore((state) => state.deleteTask);
   const moveTask = useBoardStore((state) => state.moveTask);
 
-  // NYTT: Aktiva drag-uppgifter
-  const [activeTaskId, setActiveTaskId] = useState(null);
-  const [activeTaskCol, setActiveTaskCol] = useState(null);
-
   const { isTaskDragging, handleDragStart, handleDragEnd } = useBoardDnD({
     deleteTask,
     moveTask,
     editMode,
-    setActiveTaskId, // Skicka in så du kan uppdatera från hook
-    setActiveTaskCol,
   });
 
   const {
@@ -42,18 +30,12 @@ export default function BoardPage() {
     handleCloseModal,
   } = useTaskModalState(columns, columnOrder);
 
-  // Hitta draget task
-  const draggedTask =
-    isTaskDragging && activeTaskId && activeTaskCol
-      ? columns[activeTaskCol]?.find((t) => t.id === activeTaskId)
-      : null;
-
   return (
-    <div className="min-h-screen flex flex-col relative transition-all duration-200">
+    <div className="min-h-screen flex flex-col relative transition-all duration-400 w-full">
       <div
         className={`transition-opacity duration-300 ${
           editMode
-            ? 'opacity-30 pointer-events-none'
+            ? 'opacity-1 pointer-events-none'
             : 'opacity-100 pointer-events-auto'
         }`}
       >
@@ -62,9 +44,9 @@ export default function BoardPage() {
 
       <section
         aria-label="Add new task"
-        className={`pb-4 border-b-2 border-secondary w-full transition-opacity duration-300 ${
+        className={`w-full transition-opacity duration-300 ${
           editMode
-            ? 'opacity-30 pointer-events-none'
+            ? 'opacity-1 pointer-events-none'
             : 'opacity-100 pointer-events-auto'
         }`}
       >
@@ -79,31 +61,23 @@ export default function BoardPage() {
         className="flex-1 flex flex-col items-center w-full px-2 sm:px-6"
         role="main"
       >
-        <section aria-label="Kanban board" className="w-full">
-          <DndContext
-            onDragStart={(event) => {
-              handleDragStart(event);
-              // Hantera aktiv task och kolumn
-              if (editMode && event.active.data?.current?.type === 'task') {
-                setActiveTaskId(event.active.id);
-                setActiveTaskCol(event.active.data.current.columnId);
-              }
-            }}
-            onDragEnd={(event) => {
-              handleDragEnd(event);
-              setActiveTaskId(null);
-              setActiveTaskCol(null);
-            }}
-          >
+        <section
+          aria-label="Kanban board"
+          className="w-full flex-col flex items-center"
+        >
+          <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
             <div
               className="
-                flex flex-row flex-nowrap gap-4 overflow-x-auto
-                justify-start
-                mt-4 sm:mt-10
+                m-2
+                p-10
+                gap-6
+                items-center
+                justify-center
                 w-full
-                pb-4
+              sm:flex-row sm:items-center sm:justify-center sm:space-x-4
+                flex
+                flex-col
               "
-              style={{ WebkitOverflowScrolling: 'touch' }}
             >
               {columnOrder.map((colId) => (
                 <BoardColumn
@@ -120,18 +94,6 @@ export default function BoardPage() {
               visible={isTaskDragging && editMode}
               editMode={editMode}
             />
-            {/* DRAG OVERLAY */}
-            <DragOverlay>
-              {draggedTask ? (
-                <KanbanItem
-                  id={draggedTask.id}
-                  text={draggedTask.text}
-                  columnId={activeTaskCol}
-                  editMode={true}
-                  // Du kan lägga till specialstil här för overlayn!
-                />
-              ) : null}
-            </DragOverlay>
           </DndContext>
         </section>
         {selectedTask && modalTask && modalCol && (
@@ -163,7 +125,7 @@ export default function BoardPage() {
           style={{ fontSize: 0 }}
         >
           <ArrowsRightLeftIcon
-            className={`w-8 h-8 sm:w-7 sm:h-7 ${
+            className={`w-8 h-8 sm:w-7 sm:h-7 cursor-pointer ${
               editMode ? 'text-secondary' : ''
             }`}
             aria-hidden="true"
@@ -174,7 +136,7 @@ export default function BoardPage() {
       <div
         className={`transition-opacity duration-300 ${
           editMode
-            ? 'opacity-30 pointer-events-none'
+            ? 'opacity-2 pointer-events-none'
             : 'opacity-100 pointer-events-auto'
         }`}
       >
