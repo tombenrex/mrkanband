@@ -15,7 +15,7 @@ export default function AddTaskForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex gap-2 justify-center p-4 border-b-2 border-secondary"
+      className="flex gap-2 justify-center pt-4 w-4/6 mx-auto"
     >
       <input
         id="new-task"
@@ -49,5 +49,5 @@ export default function AddTaskForm({
 AddTaskForm.propTypes = {
   columnOrder: PropTypes.arrayOf(PropTypes.string).isRequired,
   onTaskSubmit: PropTypes.func.isRequired,
-  initialColumn: PropTypes.string, // optional
+  initialColumn: PropTypes.string,
 };

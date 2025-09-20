@@ -32,7 +32,6 @@ export default function BoardPage() {
 
   return (
     <div className="min-h-screen flex flex-col relative transition-all duration-200">
-      {/* Header */}
       <div
         className={`transition-opacity duration-300 ${
           editMode
@@ -43,10 +42,9 @@ export default function BoardPage() {
         <Header />
       </div>
 
-      {/* AddTaskForm */}
       <section
         aria-label="Add new task"
-        className={`w-full transition-opacity duration-300 ${
+        className={`pb-4 border-b-2 border-secondary w-full transition-opacity duration-300 ${
           editMode
             ? 'opacity-30 pointer-events-none'
             : 'opacity-100 pointer-events-auto'
@@ -60,7 +58,7 @@ export default function BoardPage() {
       </section>
 
       <main
-        className="flex-1 flex flex-col items-center w-full px-2 sm:px-4"
+        className="flex-1 flex flex-col items-center w-full px-2 sm:px-6"
         role="main"
       >
         <section aria-label="Kanban board" className="w-full">
@@ -120,7 +118,6 @@ export default function BoardPage() {
         </button>
       </div>
 
-      {/* Footer */}
       <div
         className={`transition-opacity duration-300 ${
           editMode
