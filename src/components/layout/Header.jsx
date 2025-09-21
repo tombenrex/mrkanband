@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { asset } from '../../utils/asset';
+import { ThemeDropdown } from '@board';
 
 export default function Header() {
   return (
@@ -11,6 +12,7 @@ export default function Header() {
           className="logo-img mx-auto max-w-xs md:max-w-sm lg:max-w-md"
         />
       </Link>
+      <ThemeDropdown />
     </header>
   );
 }

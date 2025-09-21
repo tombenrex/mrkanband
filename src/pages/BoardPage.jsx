@@ -3,9 +3,9 @@ import { DndContext } from '@dnd-kit/core';
 import { useBoardStore } from '@store';
 import { Header, Footer } from '@layout';
 import { TrashModal } from '@modal';
-
-import { BoardColumn, TrashArea, TaskModal, AddTaskForm } from '@board';
 import { useBoardDnD, useTaskModalState } from '@hooks';
+import { BoardColumn, TrashArea, TaskModal, AddTaskForm } from '@board';
+
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 
 export default function BoardPage() {
