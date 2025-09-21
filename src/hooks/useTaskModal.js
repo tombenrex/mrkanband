@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useBoardStore } from '../store/useBoardStore';
+import { useBoardStore } from '@store';
 
 export function useTaskModal(task, columnId, showPermalink) {
   const [isEditing, setIsEditing] = useState(false);

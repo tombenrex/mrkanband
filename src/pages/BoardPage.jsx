@@ -32,7 +32,6 @@ export default function BoardPage() {
 
   return (
     <div className="min-h-screen flex flex-col relative transition-all duration-400 w-full">
-      {/* Allt innehåll utom footern får padding-x */}
       <div className="flex-1 flex flex-col w-full px-2 sm:px-4 md:px-8 lg:px-16 xl:px-32">
         <div
           className={`transition-opacity duration-300 ${
@@ -86,7 +85,7 @@ export default function BoardPage() {
                   />
                 ))}
               </div>
-              {/* TrashArea & EditMode button side by side */}
+
               <div className="flex flex-row justify-center items-center gap-3 w-full my-3 sm:my-6 z-20">
                 <TrashArea
                   visible={isTaskDragging && editMode}
@@ -129,7 +128,7 @@ export default function BoardPage() {
           )}
         </main>
       </div>
-      {/* Footer utanför "padding-x" containern, går alltid kant-till-kant */}
+
       <div
         className={`transition-opacity duration-300 ${
           editMode

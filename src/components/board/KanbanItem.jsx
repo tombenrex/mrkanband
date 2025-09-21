@@ -11,7 +11,6 @@ export default function KanbanItem({ id, text, columnId, editMode, onClick }) {
     isDragging,
   } = useKanbanItem(id, columnId, editMode);
 
-  // Vi wrappar click så det aldrig går att öppna modal i editMode
   function handleClick(e) {
     if (editMode) {
       e.preventDefault();

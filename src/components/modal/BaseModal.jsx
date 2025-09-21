@@ -17,7 +17,7 @@ export default function BaseModal({
         <button
           className="btn btn-sm btn-ghost absolute top-2 right-2 border-secondary m-2"
           onClick={onClose}
-          aria-label="Stäng"
+          aria-label="Close"
         >
           &#10005;
         </button>
