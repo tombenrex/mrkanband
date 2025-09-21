@@ -19,7 +19,7 @@ export default function TrashModal({ onClose }) {
 
   return (
     <BaseModal onClose={onClose} modalClass="max-w-lg">
-      <h2 className="text-xl font-bold mb-4">Papperskorg</h2>
+      <h2 className="text-xl font-bold mb-4">Trash</h2>
       {trash.length === 0 ? (
         <div className="text-center text-gray-500">Empty</div>
       ) : (
@@ -40,7 +40,7 @@ export default function TrashModal({ onClose }) {
           className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
           onClick={handleClear}
         >
-          Töm papperskorgen
+          Empty Trash
         </button>
       )}
     </BaseModal>

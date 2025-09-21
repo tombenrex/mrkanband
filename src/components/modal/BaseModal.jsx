@@ -9,15 +9,21 @@ export default function BaseModal({
 }) {
   return createPortal(
     <div
-      className={` border fixed inset-0 z-50 flex items-center justify-center bg-black/40 ${overlayClass}`}
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/40 transition-opacity animate-fade-in ${overlayClass}`}
     >
       <div
-        className={`relative w-full max-w-xs sm:max-w-md rounded shadow-lg px-4 py-6 border bg-secondary ${modalClass}`}
+        className={`
+          relative w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl
+          rounded-xl shadow-2xl bg-base-100 border-2 border-secondary
+          px-4 py-6 sm:px-8 sm:py-8
+          transition-all
+          ${modalClass}
+        `}
       >
         <button
           className="btn btn-sm btn-ghost absolute top-2 right-2 border-secondary m-2"
           onClick={onClose}
-          aria-label="Close"
+          aria-label="Stäng"
         >
           &#10005;
         </button>
