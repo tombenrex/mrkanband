@@ -7,13 +7,11 @@ export function ThemeProvider({ children }) {
   );
   const [themes, setThemes] = useState(['light', 'dark']);
 
-  // Spara och applicera valt tema
   useEffect(() => {
     localStorage.setItem('theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // Ladda teman från themes.json
   useEffect(() => {
     async function loadThemes() {
       try {
