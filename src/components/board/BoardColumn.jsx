@@ -13,10 +13,10 @@ export default function BoardColumn({
   const { setNodeRef, isOver } = useBoardColumn(id);
 
   return (
-    <div className="flex flex-col items-center min-w-[250px] max-w-xs flex-1 mx-1">
+    <div className="flex flex-col items-center w-full max-w-lg flex-1 mx-1">
       <Link
         to={`/column/${id}`}
-        className="text-3xl text-center mb-3 block hover:bg-secondary border rounded w-full"
+        className="text-2xl text-center mb-3 block hover:bg-secondary border rounded w-full"
       >
         {title}
       </Link>
@@ -43,7 +43,6 @@ export default function BoardColumn({
     </div>
   );
 }
-
 BoardColumn.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,

@@ -12,8 +12,8 @@ export default function ColumnModal({
   return (
     <BaseModal
       onClose={onClose}
-      overlayClass="bg-black/50 border-4 border-secondary p-3"
-      modalClass="bg-base-100 rounded-lg p-5 w-full shadow-lg border-2 border-secondary"
+      overlayClass="border-4 border-secondary bg-base-300/50"
+      modalClass="bg-base-100 rounded-lg p-5 shadow-lg border-2 border-secondary"
     >
       <h2 className="text-xl font-bold mb-4">{columnName || columnId}</h2>
 

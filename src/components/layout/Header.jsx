@@ -7,7 +7,7 @@ export default function Header() {
         <img
           src="/logo.png"
           alt="Logo"
-          className="logo-img mx-auto max-w-xs md:max-w-sm lg:max-w-md h-auto"
+          className="logo-img mx-auto max-w-xs md:max-w-sm lg:max-w-md"
         />
       </Link>
     </header>
