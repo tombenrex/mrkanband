@@ -22,7 +22,6 @@ export function useTaskModalState(columns, columnOrder) {
     localStorage.removeItem('lastViewedTask');
   }
 
-  // Hitta rätt task och kolumn till modalen
   let modalTask = null;
   let modalCol = null;
   if (selectedTask) {
