@@ -2,10 +2,10 @@
 @plugin "daisyui" {
   themes: all;
 }
-.font-monaspace {
+header {
   font-family: 'Monaspace Radon', cursive;
 }
 
-.font-fira {
+body {
   font-family: 'Fira Code Variable', monospace;
 }

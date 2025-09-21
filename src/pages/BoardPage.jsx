@@ -33,23 +33,21 @@ export default function BoardPage() {
 
   return (
     <div className="min-h-screen flex flex-col relative transition-all duration-400 w-full bg-base-200 text-base-content">
-      {/* Header ska inte ha padding! */}
       <div
         className={`transition-opacity duration-300 ${
           editMode
-            ? 'opacity-70 pointer-events-none'
+            ? 'opacity-10 pointer-events-none'
             : 'opacity-100 pointer-events-auto'
         }`}
       >
         <Header />
       </div>
 
-      {/* Lägg padding på AddTaskForm */}
       <section
         aria-label="Add new task"
         className={`w-full px-2 sm:px-4 md:px-8 lg:px-16 xl:px-32 transition-opacity duration-300 ${
           editMode
-            ? 'opacity-70 pointer-events-none'
+            ? 'opacity-10 pointer-events-none'
             : 'opacity-100 pointer-events-auto'
         }`}
       >
@@ -60,7 +58,6 @@ export default function BoardPage() {
         />
       </section>
 
-      {/* Lägg padding på main-innehållet */}
       <main
         className="flex-1 flex flex-col items-center w-full px-2 sm:px-4 md:px-8 lg:px-16 xl:px-32"
         role="main"
@@ -137,7 +134,7 @@ export default function BoardPage() {
       <div
         className={`transition-opacity duration-300 ${
           editMode
-            ? 'opacity-70 pointer-events-none'
+            ? 'opacity-5 pointer-events-none'
             : 'opacity-100 pointer-events-auto'
         }`}
       >
