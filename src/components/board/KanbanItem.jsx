@@ -11,6 +11,25 @@ export default function KanbanItem({ id, text, columnId, editMode, onClick }) {
     isDragging,
   } = useKanbanItem(id, columnId, editMode);
 
+  // Vi wrappar click så det aldrig går att öppna modal i editMode
+  function handleClick(e) {
+    if (editMode) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    if (onClick) onClick(e);
+  }
+
+  function handleKeyDown(e) {
+    if (editMode) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    if (onClick && e.key === 'Enter') onClick(e);
+  }
+
   return (
     <div
       ref={editMode ? setNodeRef : undefined}
@@ -18,7 +37,7 @@ export default function KanbanItem({ id, text, columnId, editMode, onClick }) {
       {...(editMode ? listeners : {})}
       className={`kanban-task-row p-2 bg-base-200 w-full rounded mb-2 shadow flex items-center border min-h-10 select-none
         ${isDragging ? 'opacity-50 z-50' : ''}
-        ${editMode ? 'cursor-grab' : ''}
+        ${editMode ? 'cursor-grab' : onClick ? 'cursor-pointer' : ''}
       `}
       style={{
         ...(editMode && transform
@@ -33,14 +52,12 @@ export default function KanbanItem({ id, text, columnId, editMode, onClick }) {
             }
           : {}),
       }}
-      tabIndex={onClick ? 0 : -1}
-      onClick={onClick}
-      onKeyDown={
-        onClick ? (e) => (e.key === 'Enter' ? onClick() : null) : undefined
-      }
-      role={onClick ? 'button' : undefined}
+      tabIndex={onClick && !editMode ? 0 : -1}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      role={onClick && !editMode ? 'button' : undefined}
     >
-      <span className="break-words flex-1 p-1 cursor-pointer">{text}</span>
+      <span className="break-words flex-1 p-1">{text}</span>
     </div>
   );
 }
