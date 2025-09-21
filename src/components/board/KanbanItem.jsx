@@ -40,7 +40,7 @@ export default function KanbanItem({ id, text, columnId, editMode, onClick }) {
       }
       role={onClick ? 'button' : undefined}
     >
-      <span className="break-words flex-1 p-1">{text}</span>
+      <span className="break-words flex-1 p-1 cursor-pointer">{text}</span>
     </div>
   );
 }
