@@ -1,5 +1,7 @@
 .logo-img {
   transition: filter 0.2s;
+  filter: brightness(0) saturate(100%) invert(10%) sepia(100%)
+    hue-rotate(180deg) saturate(300%) brightness(0.8);
 }
 .logo-link:hover .logo-img {
   filter: brightness(0) saturate(100%) invert(30%) sepia(100%)

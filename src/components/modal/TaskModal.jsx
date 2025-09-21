@@ -29,8 +29,8 @@ export default function TaskModal({ task, onClose, showPermalink, columnId }) {
           <h2 className="text-xl font-bold mb-4 text-primary">
             Task from {columnId || task.columnId}
           </h2>
-          <div className="border p-2 rounded-md items-center flex justify-between">
-            <p className="mb-4 font-fira break-words overflow-auto">
+          <div className="border border-base-300 p-2 rounded-md flex items-center justify-between bg-base-200">
+            <p className="mb-0 font-fira break-words overflow-auto text-base-content">
               {task.text}
             </p>
           </div>

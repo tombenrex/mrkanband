@@ -19,15 +19,18 @@ export default function TrashModal({ onClose }) {
 
   return (
     <BaseModal onClose={onClose} modalClass="max-w-lg">
-      <h2 className="text-xl font-bold mb-4">Trash</h2>
+      <h2 className="text-xl font-bold mb-4 text-base-content">Trash</h2>
       {trash.length === 0 ? (
-        <div className="text-center text-gray-500">Empty</div>
+        <div className="text-center text-base-content/60">Empty</div>
       ) : (
         <ul className="max-h-96 overflow-auto mb-4">
           {trash.map((task) => (
-            <li key={task.id + task.deletedAt} className="border-b py-2">
-              <div className="font-semibold">{task.text}</div>
-              <div className="text-xs text-gray-400">
+            <li
+              key={task.id + task.deletedAt}
+              className="border-b border-base-content/20 py-2"
+            >
+              <div className="font-semibold text-base-content">{task.text}</div>
+              <div className="text-xs text-base-content/60">
                 From {task.column}, deleted:{' '}
                 {new Date(task.deletedAt).toLocaleString()}
               </div>
@@ -36,10 +39,7 @@ export default function TrashModal({ onClose }) {
         </ul>
       )}
       {trash.length > 0 && (
-        <button
-          className="mt-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-          onClick={handleClear}
-        >
+        <button className="mt-2 btn btn-error" onClick={handleClear}>
           Empty Trash
         </button>
       )}

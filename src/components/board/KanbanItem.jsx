@@ -34,9 +34,17 @@ export default function KanbanItem({ id, text, columnId, editMode, onClick }) {
       ref={editMode ? setNodeRef : undefined}
       {...(editMode ? attributes : {})}
       {...(editMode ? listeners : {})}
-      className={`kanban-task-row p-2 bg-base-200 w-full rounded mb-2 shadow flex items-center border min-h-10 select-none
+      className={`
+        kanban-task-row p-2 w-full rounded mb-2 shadow flex items-center border min-h-10 select-none
+        bg-base-200 border-primary
         ${isDragging ? 'opacity-50 z-50' : ''}
-        ${editMode ? 'cursor-grab' : onClick ? 'cursor-pointer' : ''}
+        ${
+          editMode
+            ? 'cursor-grab'
+            : onClick
+            ? 'cursor-pointer hover:bg-primary/20 focus-visible:ring-2 focus-visible:ring-primary'
+            : ''
+        }
       `}
       style={{
         ...(editMode && transform

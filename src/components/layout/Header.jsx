@@ -8,23 +8,25 @@ export default function Header() {
   const [showTrash, setShowTrash] = useState(false);
 
   return (
-    <header className="w-full border-b-2 border-secondary">
-      <Link to="/" className="logo-link" aria-label="Start page">
-        <img
-          src={asset('images/logo.png')}
-          alt="Logo"
-          className="logo-img mx-auto max-w-xs md:max-w-sm lg:max-w-md"
-        />
-      </Link>
-      <div className="flex justify-end pt-2">
-        <button
-          onClick={() => setShowTrash(true)}
-          className="px-3 py-1 bg-secondary text-white rounded cursor-pointer"
-        >
-          Trash
-        </button>
+    <header className="w-full bg-base-100 text-base-content border-b-2 border-secondary px-4 py-2">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-2">
+        <Link to="/" className="logo-link" aria-label="Start page">
+          <img
+            src={asset('images/logo.png')}
+            alt="Logo"
+            className="logo-img mx-auto max-w-xs md:max-w-sm lg:max-w-md"
+          />
+        </Link>
+        <div className="flex items-center gap-2 mt-2 md:mt-0">
+          <button
+            onClick={() => setShowTrash(true)}
+            className="btn btn-secondary"
+          >
+            Trash
+          </button>
+          <ThemeDropdown />
+        </div>
       </div>
-      <ThemeDropdown />
       {showTrash && <TrashModal onClose={() => setShowTrash(false)} />}
     </header>
   );

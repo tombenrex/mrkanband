@@ -19,9 +19,11 @@ export default function BaseModal({
           transition-all
           ${modalClass}
         `}
+        role="dialog"
+        aria-modal="true"
       >
         <button
-          className="btn btn-sm btn-ghost absolute top-2 right-2 border-secondary m-2"
+          className="btn btn-sm btn-ghost absolute top-2 right-2 m-2 focus:outline-none focus:ring-2 focus:ring-secondary"
           onClick={onClose}
           aria-label="Stäng"
         >

@@ -15,13 +15,13 @@ export default function AddTaskForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex gap-2 justify-center p-5 mx-auto border-b-2 border-secondary"
+      className="flex gap-2 justify-center p-5 mx-auto border-b-2 border-r-2 border-l-2 border-secondary bg-base-100 rounded-lg"
     >
       <input
         id="new-task"
         name="new-task"
         type="text"
-        className="input input-bordered input-primary w-full text-primary"
+        className="input input-primary w-full"
         placeholder="Write Your New Task Here..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -39,7 +39,7 @@ export default function AddTaskForm({
           </option>
         ))}
       </select>
-      <button type="submit" className="btn btn-secondary hover:btn-secondary">
+      <button type="submit" className="btn btn-primary hover:btn-secondary">
         Go
       </button>
     </form>

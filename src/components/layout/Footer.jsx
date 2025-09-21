@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-primary p-4 w-full text-black text-center flex justify-center text-sm gap-2">
+    <footer className="bg-base-100 p-4 w-full text-base-content text-center flex justify-center text-sm gap-2">
       <p>&copy; {new Date().getFullYear()} Tom Larsson | </p>
       <a
         href="https://github.com/tombenrex"
@@ -13,7 +13,7 @@ export default function Footer() {
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
           viewBox="0 0 24 24"
-          className="w-5 h-5 hover:text-secondary"
+          className="w-5 h-5 text-base-content/70 hover:text-primary transition-colors"
         >
           <path
             d="M12 0C5.371 0 0 5.373 0 12c0 5.303 3.438 9.799 8.207 11.387.6.111.793-.261.793-.577
