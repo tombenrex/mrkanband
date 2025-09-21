@@ -16,18 +16,18 @@ export default function BoardColumn({
     <div className="flex flex-col items-center w-full max-w-lg flex-1 mx-1">
       <Link
         to={`/column/${id}`}
-        className="text-2xl text-center mb-3 block hover:bg-secondary border rounded w-full"
+        className="text-2xl text-center mb-3 block hover:bg-secondary bg-secondary border rounded w-full"
       >
         {title}
       </Link>
       <div
         ref={setNodeRef}
-        className={`bg-primary pt-2 rounded-lg shadow-md w-full flex flex-col border border-primary justify-center items-center transition-colors duration-150 ${
+        className={`bg-secondary pt-2 rounded-lg shadow-md w-full flex flex-col border border-secondary justify-center items-center transition-colors duration-150 ${
           isOver ? 'ring-2 ring-secondary' : ''
         }`}
         style={{ minHeight: 180 }}
       >
-        <div className="flex-1 min-h-[100px] flex flex-col w-full break-all p-2">
+        <div className="flex-1 min-h-[100px] flex flex-col w-full break-all p-2 bg-secondary rounded-lg border-secondary">
           {items.map((task) => (
             <KanbanItem
               key={task.id}

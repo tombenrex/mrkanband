@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { DndContext } from '@dnd-kit/core';
 import { useBoardStore } from '@store';
 import { Header, Footer } from '@layout';
-import { TrashModal } from '@modal';
+
 import { useBoardDnD, useTaskModalState } from '@hooks';
 import { BoardColumn, TrashArea, TaskModal, AddTaskForm } from '@board';
 
@@ -10,7 +10,6 @@ import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 
 export default function BoardPage() {
   const [editMode, setEditMode] = useState(false);
-  const [showTrash, setShowTrash] = useState(false);
 
   const columns = useBoardStore((state) => state.columns);
   const columnOrder = useBoardStore((state) => state.columnOrder);
@@ -33,7 +32,7 @@ export default function BoardPage() {
   } = useTaskModalState(columns, columnOrder);
 
   return (
-    <div className="min-h-screen flex flex-col relative transition-all duration-400 w-full">
+    <div className="min-h-screen flex flex-col relative transition-all duration-400 w-full bg-primary">
       <div className="flex-1 flex flex-col w-full px-2 sm:px-4 md:px-8 lg:px-16 xl:px-32">
         <div
           className={`transition-opacity duration-300 ${
@@ -42,14 +41,6 @@ export default function BoardPage() {
               : 'opacity-100 pointer-events-auto'
           }`}
         >
-          <div className="flex justify-end pt-2">
-            <button
-              onClick={() => setShowTrash(true)}
-              className="px-3 py-1 bg-secondary text-white rounded cursor-pointer"
-            >
-              Trash
-            </button>
-          </div>
           <Header />
         </div>
 
@@ -110,8 +101,8 @@ export default function BoardPage() {
                     flex items-center justify-center
                     rounded-full shadow-lg
                     transition
-                    bg-primary text-black
-                    hover:bg-secondary hover:text-white
+                    text-secondary
+                    hover:bg-secondary hover:text-primary
                     border-2 border-secondary
                     focus:outline-none focus:ring-2 focus:ring-secondary
                     w-14 h-14 sm:w-14 sm:h-14
@@ -137,7 +128,6 @@ export default function BoardPage() {
             />
           )}
         </main>
-        {showTrash && <TrashModal onClose={() => setShowTrash(false)} />}
       </div>
 
       <div

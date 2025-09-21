@@ -23,7 +23,7 @@ export default function TrashArea({ visible, editMode }) {
       aria-label="Papperskorg"
       tabIndex={editMode && visible ? 0 : -1}
       style={{
-        touchAction: 'none', // Viktigt för mobilvänlig drop!
+        touchAction: 'none',
       }}
     >
       {isOver ? (

@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeContext } from '@context';
 
-function getDaisyUIThemes() {
-  return window.__themes && Array.isArray(window.__themes)
-    ? window.__themes
-    : ['light', 'dark'];
+function extractThemesFromCss(cssText) {
+  const regex = /\[data-theme=([^\]]+)\]/g;
+  const themes = new Set();
+  let match;
+  while ((match = regex.exec(cssText)) !== null) {
+    themes.add(match[1].replace(/['"]/g, ''));
+  }
+  return [...themes];
 }
 
 export function ThemeProvider({ children }) {
@@ -12,7 +16,7 @@ export function ThemeProvider({ children }) {
     () => localStorage.getItem('theme') || 'light'
   );
 
-  const [themes, setThemes] = useState(getDaisyUIThemes());
+  const [themes, setThemes] = useState(['light', 'dark']);
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
@@ -20,9 +24,20 @@ export function ThemeProvider({ children }) {
   }, [theme]);
 
   useEffect(() => {
-    if (window.__themes && Array.isArray(window.__themes)) {
-      setThemes(window.__themes);
+    async function loadThemes() {
+      try {
+        const res = await fetch('/node_modules/daisyui/themes.css');
+        const cssText = await res.text();
+        const foundThemes = extractThemesFromCss(cssText);
+        if (foundThemes.length > 0) {
+          setThemes(foundThemes);
+        }
+      } catch (err) {
+        console.error('Kunde inte läsa DaisyUI themes.css:', err);
+      }
     }
+
+    loadThemes();
   }, []);
 
   return (

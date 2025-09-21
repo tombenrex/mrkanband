@@ -21,7 +21,7 @@ export default function AddTaskForm({
         id="new-task"
         name="new-task"
         type="text"
-        className="input input-bordered input-primary w-full"
+        className="input input-bordered input-primary w-full text-primary"
         placeholder="Write Your New Task Here..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -29,7 +29,7 @@ export default function AddTaskForm({
       <select
         id="column-select"
         name="column"
-        className="select select-primary"
+        className="select select-secondary"
         value={addToCol}
         onChange={(e) => onColChange(e.target.value)}
       >
@@ -39,7 +39,7 @@ export default function AddTaskForm({
           </option>
         ))}
       </select>
-      <button type="submit" className="btn btn-primary hover:btn-secondary">
+      <button type="submit" className="btn btn-secondary hover:btn-secondary">
         Go
       </button>
     </form>
