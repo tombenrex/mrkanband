@@ -5,10 +5,11 @@ import { BrowserRouter } from 'react-router-dom';
 import '@fontsource/monaspace-radon';
 import '@fontsource-variable/fira-code';
 import './styles/index.css';
+const basename = import.meta.env.MODE === 'production' ? '/mrkanband' : '/';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename="/mrkanband">
+    <BrowserRouter basename={basename}>
       <App />
     </BrowserRouter>
   </React.StrictMode>

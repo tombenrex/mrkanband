@@ -9,6 +9,9 @@ const __dirname = dirname(__filename);
 
 export default defineConfig(({ mode }) => ({
   base: mode === 'production' ? '/mrkanband/' : '/',
+  server: {
+    open: '/',
+  },
 
   plugins: [react(), tailwindcss()],
 

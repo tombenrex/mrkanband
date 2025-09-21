@@ -28,7 +28,7 @@ export default function TrashModal({ onClose }) {
             <li key={task.id + task.deletedAt} className="border-b py-2">
               <div className="font-semibold">{task.text}</div>
               <div className="text-xs text-gray-400">
-                Från kolumn: {task.column}, kastad:{' '}
+                From {task.column}, deleted:{' '}
                 {new Date(task.deletedAt).toLocaleString()}
               </div>
             </li>

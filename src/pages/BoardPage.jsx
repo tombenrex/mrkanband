@@ -45,7 +45,7 @@ export default function BoardPage() {
           <div className="flex justify-end pt-2">
             <button
               onClick={() => setShowTrash(true)}
-              className="px-3 py-1 bg-secondary text-white rounded"
+              className="px-3 py-1 bg-secondary text-white rounded cursor-pointer"
             >
               Trash
             </button>
