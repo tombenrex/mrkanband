@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { nanoid } from 'nanoid';
 
 const LOCAL_STORAGE_KEY = 'mrkanband-columns';
+const TRASH_KEY = 'mrkanband-trash';
 
 const initialColumns = {
   todo: [],
@@ -12,6 +13,12 @@ const initialColumns = {
 function loadFromStorage() {
   const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
   return saved ? JSON.parse(saved) : initialColumns;
+}
+
+function addToTrash(task, fromColumn) {
+  const trash = JSON.parse(localStorage.getItem(TRASH_KEY) || '[]');
+  trash.push({ ...task, column: fromColumn, deletedAt: Date.now() });
+  localStorage.setItem(TRASH_KEY, JSON.stringify(trash));
 }
 
 export const useBoardStore = create((set) => ({
@@ -33,6 +40,10 @@ export const useBoardStore = create((set) => ({
 
   deleteTask: (columnId, taskId) => {
     set((state) => {
+      const task = state.columns[columnId].find((t) => t.id === taskId);
+      if (task) {
+        addToTrash(task, columnId);
+      }
       const updated = {
         ...state.columns,
         [columnId]: state.columns[columnId].filter((t) => t.id !== taskId),
@@ -40,6 +51,14 @@ export const useBoardStore = create((set) => ({
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
       return { columns: updated };
     });
+  },
+
+  getTrash: () => {
+    return JSON.parse(localStorage.getItem(TRASH_KEY) || '[]');
+  },
+
+  clearTrash: () => {
+    localStorage.removeItem(TRASH_KEY);
   },
 
   moveColumn: (fromIdx, toIdx) => {

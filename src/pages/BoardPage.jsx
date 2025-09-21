@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { DndContext } from '@dnd-kit/core';
 import { useBoardStore } from '@store';
 import { Header, Footer } from '@layout';
+import { TrashModal } from '@modal';
 
 import { BoardColumn, TrashArea, TaskModal, AddTaskForm } from '@board';
 import { useBoardDnD, useTaskModalState } from '@hooks';
@@ -9,6 +10,7 @@ import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 
 export default function BoardPage() {
   const [editMode, setEditMode] = useState(false);
+  const [showTrash, setShowTrash] = useState(false);
 
   const columns = useBoardStore((state) => state.columns);
   const columnOrder = useBoardStore((state) => state.columnOrder);
@@ -33,6 +35,14 @@ export default function BoardPage() {
   return (
     <div className="min-h-screen flex flex-col relative transition-all duration-400 w-full">
       <div className="flex-1 flex flex-col w-full px-2 sm:px-4 md:px-8 lg:px-16 xl:px-32">
+        <div className="flex justify-end pt-2">
+          <button
+            onClick={() => setShowTrash(true)}
+            className="px-3 py-1 bg-secondary text-white rounded"
+          >
+            Trash
+          </button>
+        </div>
         <div
           className={`transition-opacity duration-300 ${
             editMode
@@ -127,6 +137,7 @@ export default function BoardPage() {
             />
           )}
         </main>
+        {showTrash && <TrashModal onClose={() => setShowTrash(false)} />}
       </div>
 
       <div
