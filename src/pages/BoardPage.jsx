@@ -32,7 +32,7 @@ export default function BoardPage() {
   } = useTaskModalState(columns, columnOrder);
 
   return (
-    <div className="min-h-screen flex flex-col relative transition-all duration-400 w-full bg-base-200 text-base-content">
+    <div className="flex flex-col relative transition-all duration-400 w-full bg-base-200 text-base-content">
       <div
         className={`transition-opacity duration-300 ${
           editMode

@@ -24,7 +24,9 @@ export default function TrashArea({ visible, editMode }) {
             : 'bg-base-100 border-base-content/30'
         }
       `}
-      aria-label="Papperskorg"
+      role="region"
+      aria-label="Trash area. Drop here to delete."
+      aria-live="polite"
       tabIndex={editMode && visible ? 0 : -1}
       style={{
         touchAction: 'none',
@@ -35,6 +37,12 @@ export default function TrashArea({ visible, editMode }) {
       ) : (
         <TrashOutline className="h-10 w-10 text-base-content/50 transition-all duration-200" />
       )}
+
+      <span className="sr-only">
+        {isOver
+          ? 'You are over the trash area. Release to delete.'
+          : 'Trash area. Drag here to delete.'}
+      </span>
     </div>
   );
 }
