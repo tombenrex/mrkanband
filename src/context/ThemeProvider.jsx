@@ -18,7 +18,7 @@ export function ThemeProvider({ children }) {
         const res = await fetch(import.meta.env.BASE_URL + 'themes.json');
         if (!res.ok) throw new Error('themes.json not found!');
         const themeList = await res.json();
-        console.log('Loaded themes:', themeList);
+
         if (Array.isArray(themeList) && themeList.length > 0) {
           setThemes(themeList);
         }
