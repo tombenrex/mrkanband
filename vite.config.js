@@ -7,9 +7,11 @@ import { dirname, resolve } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  base: mode === 'production' ? '/mrkanband/' : '/',
+
   plugins: [react(), tailwindcss()],
+
   resolve: {
     alias: {
       '@board': resolve(__dirname, 'src/components/board'),
@@ -19,6 +21,7 @@ export default defineConfig({
       '@pages': resolve(__dirname, 'src/pages'),
       '@hooks': resolve(__dirname, 'src/hooks'),
       '@store': resolve(__dirname, 'src/store'),
+      '@assets': resolve(__dirname, 'src/assets'),
     },
   },
-});
+}));

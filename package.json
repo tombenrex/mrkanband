@@ -1,6 +1,7 @@
 {
   "name": "mrkanband",
   "private": true,
+  "homepage": "https://tmlsn.github.io/mrkanband",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

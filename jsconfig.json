@@ -4,7 +4,11 @@
     "paths": {
       "@board": ["components/board/index.js"],
       "@layout": ["components/layout/index.js"],
-      "@context": ["context/index.js"]
+      "@context": ["context/index.js"],
+      "@modal": ["components/modal/index.js"],
+      "@hooks": ["hooks/index.js"],
+      "@store": ["store/index.js"],
+      "@pages": ["pages/index.js"]
     }
   }
 }
