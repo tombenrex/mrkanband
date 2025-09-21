@@ -15,7 +15,7 @@ export function ThemeProvider({ children }) {
   useEffect(() => {
     async function loadThemes() {
       try {
-        const res = await fetch('/themes.json');
+        const res = await fetch('./themes.json');
         if (!res.ok) throw new Error('themes.json not found!');
         const themeList = await res.json();
         console.log('Loaded themes:', themeList);
