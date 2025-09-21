@@ -29,7 +29,7 @@ export default function KanbanItem({ id, text, columnId, editMode, onClick }) {
           : {}),
         ...(editMode
           ? {
-              touchAction: 'none', // ALLTID när editMode, bra för mobil
+              touchAction: 'none',
             }
           : {}),
       }}
