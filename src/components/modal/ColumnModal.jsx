@@ -15,9 +15,12 @@ export default function ColumnModal({
       overlayClass="border-4 border-secondary bg-base-300/50"
       modalClass="bg-base-100 rounded-lg p-5 shadow-lg border-2 border-secondary"
     >
-      <h2 className="text-xl font-bold mb-4 text-base-content">
-        {columnName || columnId}
-      </h2>
+      <div className=" mb-4 text-base-content border-b-2 border-secondary pb-2 text-center">
+        <span className="flex italic text-base-350">Showing from: </span>{' '}
+        <span className="text-primary font-bold text-xl ">
+          {columnName || columnId}
+        </span>
+      </div>
 
       {tasks.length === 0 ? (
         <div className="text-center text-base-content/60">No tasks</div>
@@ -29,8 +32,8 @@ export default function ColumnModal({
         </ul>
       )}
       <div className="text-end mt-4 font-extrabold">
-        <span className="text-secondary">{tasks.length}</span>
-        <span className="font-semibold text-base-content"> tasks</span>
+        <span className="text-accent">{tasks.length}</span>
+        <span className="font-semibold text-base-content"> | Total</span>
       </div>
     </BaseModal>
   );

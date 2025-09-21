@@ -12,7 +12,7 @@ export default function ThemeDropdown() {
       <select
         id={selectId}
         name="theme-select"
-        className="select select-bordered select-sm max-w-xs bg-base-100 text-base-content"
+        className="select select-bordered  max-w-xs bg-base-100 text-base-content"
         value={theme}
         onChange={(e) => setTheme(e.target.value)}
         aria-label="Choose theme"

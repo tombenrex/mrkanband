@@ -15,8 +15,11 @@ export default function AddTaskForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex gap-2 justify-center p-5 mx-auto border-b-2 border-r-2 border-l-2 border-secondary bg-base-100 rounded-lg"
+      className="flex gap-2 justify-center p-5 mx-auto border-2 border-secondary bg-base-100 rounded-lg"
     >
+      <label htmlFor="new-task" className="sr-only">
+        Task description
+      </label>
       <input
         id="new-task"
         name="new-task"
@@ -26,6 +29,9 @@ export default function AddTaskForm({
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
+      <label htmlFor="column-select" className="sr-only">
+        Select column
+      </label>
       <select
         id="column-select"
         name="column"
