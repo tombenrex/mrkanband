@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { asset } from '../../utils/asset';
-import { ThemeDropdown } from '@board';
+import { ThemeDropdown } from '@ui';
 import { TrashModal } from '@modal';
 
 export default function Header() {

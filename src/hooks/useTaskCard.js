@@ -1,6 +1,6 @@
 import { useDraggable } from '@dnd-kit/core';
 
-export function useKanbanItem(id, columnId, editMode) {
+export function useTaskCard(id, columnId, editMode) {
   const enabled = !!editMode;
   return useDraggable(
     enabled

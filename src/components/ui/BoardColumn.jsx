@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useBoardColumn } from '@hooks';
-import { KanbanItem } from '@board';
+import { TaskCard } from '@ui';
 
 export default function BoardColumn({
   id,
@@ -29,7 +29,7 @@ export default function BoardColumn({
       >
         <div className="flex-1 min-h-[100px] flex flex-col w-full break-all p-2">
           {items.map((task) => (
-            <KanbanItem
+            <TaskCard
               key={task.id}
               id={task.id}
               text={task.text}

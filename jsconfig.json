@@ -2,13 +2,14 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@board": ["components/board/index.js"],
+      "@ui": ["components/ui/index.js"],
       "@layout": ["components/layout/index.js"],
       "@context": ["context/index.js"],
       "@modal": ["components/modal/index.js"],
       "@hooks": ["hooks/index.js"],
       "@store": ["store/index.js"],
-      "@pages": ["pages/index.js"]
+      "@pages": ["pages/index.js"],
+      "@sections": ["components/sections/index.js"]
     }
   }
 }

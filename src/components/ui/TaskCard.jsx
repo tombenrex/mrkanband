@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { useKanbanItem } from '@hooks';
+import { useTaskCard } from '@hooks';
 
-export default function KanbanItem({ id, text, columnId, editMode, onClick }) {
+export default function TaskCard({ id, text, columnId, editMode, onClick }) {
   const {
     attributes,
     listeners,
@@ -9,7 +9,7 @@ export default function KanbanItem({ id, text, columnId, editMode, onClick }) {
     transform,
     transition,
     isDragging,
-  } = useKanbanItem(id, columnId, editMode);
+  } = useTaskCard(id, columnId, editMode);
 
   function handleClick(e) {
     if (editMode) {
@@ -69,7 +69,7 @@ export default function KanbanItem({ id, text, columnId, editMode, onClick }) {
   );
 }
 
-KanbanItem.propTypes = {
+TaskCard.propTypes = {
   id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   columnId: PropTypes.string.isRequired,

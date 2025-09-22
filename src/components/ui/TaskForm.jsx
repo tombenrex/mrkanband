@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import { useAddTaskForm } from '@hooks';
+import { useTaskForm } from '@hooks';
 
 export default function AddTaskForm({
   columnOrder,
   onTaskSubmit,
   initialColumn,
 }) {
-  const { value, addToCol, onChange, onColChange, onSubmit } = useAddTaskForm(
+  const { value, addToCol, onChange, onColChange, onSubmit } = useTaskForm(
     initialColumn,
     columnOrder,
     onTaskSubmit

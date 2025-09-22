@@ -1,5 +1,5 @@
 import { useState } from 'react';
-export function useBoardDnD({
+export function useBoardDnd({
   deleteTask,
   moveTask,
   editMode,

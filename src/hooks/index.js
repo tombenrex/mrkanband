@@ -1,7 +1,7 @@
-export { useAddTaskForm } from './useAddTaskForm';
-export { useBoardDnD } from './useBoardDnD';
+export { useTaskForm } from './useTaskForm';
+export { useBoardDnd } from './useBoardDnd';
 export { useBoardColumn } from './useBoardColumn';
-export { useKanbanItem } from './useKanbanItem';
+export { useTaskCard } from './useTaskCard';
 export { useTaskModal } from './useTaskModal';
 export { useTaskModalState } from './useTaskModalState';
-export { useTrashArea } from './useTrashArea';
+export { useTrashZone } from './useTrashZone';

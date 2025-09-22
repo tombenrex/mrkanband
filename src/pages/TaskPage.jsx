@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useBoardStore } from '@store';
-import { TaskModal } from '@board';
+import { TaskModal } from '@modal';
 
 export default function TaskPage() {
   const { columnId, taskId } = useParams();

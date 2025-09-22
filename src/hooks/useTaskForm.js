@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function useAddTaskForm(initialColumn, columnOrder, onTaskSubmit) {
+export function useTaskForm(initialColumn, columnOrder, onTaskSubmit) {
   const [value, setValue] = useState('');
   const [addToCol, setAddToCol] = useState(initialColumn || columnOrder[0]);
 

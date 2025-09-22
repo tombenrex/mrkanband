@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { TrashIcon as TrashOutline } from '@heroicons/react/24/outline';
 import { TrashIcon as TrashSolid } from '@heroicons/react/24/solid';
-import { useTrashArea } from '@hooks';
+import { useTrashZone } from '@hooks';
 
-export default function TrashArea({ visible, editMode }) {
-  const { setNodeRef, isOver } = useTrashArea();
+export default function TrashZone({ visible, editMode }) {
+  const { setNodeRef, isOver } = useTrashZone();
 
   return (
     <div
@@ -47,7 +47,7 @@ export default function TrashArea({ visible, editMode }) {
   );
 }
 
-TrashArea.propTypes = {
+TrashZone.propTypes = {
   visible: PropTypes.bool.isRequired,
   editMode: PropTypes.bool,
 };

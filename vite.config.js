@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => ({
 
   resolve: {
     alias: {
-      '@board': resolve(__dirname, 'src/components/board'),
+      '@ui': resolve(__dirname, 'src/components/ui'),
       '@layout': resolve(__dirname, 'src/components/layout'),
       '@modal': resolve(__dirname, 'src/components/modal'),
       '@context': resolve(__dirname, 'src/context'),
@@ -25,6 +25,7 @@ export default defineConfig(({ mode }) => ({
       '@hooks': resolve(__dirname, 'src/hooks'),
       '@store': resolve(__dirname, 'src/store'),
       '@assets': resolve(__dirname, 'src/assets'),
+      '@sections': resolve(__dirname, 'src/components/sections'),
     },
   },
 }));
